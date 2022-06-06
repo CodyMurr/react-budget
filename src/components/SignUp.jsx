@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useState, useContext } from 'react';
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -7,23 +6,13 @@ import {
 } from 'firebase/auth';
 import { setDoc, doc, serverTimestamp } from 'firebase/firestore';
 import { db } from '../firebase.config';
+import { toast } from 'react-toastify';
+import AuthContext from '../context/AuthContext';
 
 export default function SignUp() {
-  const [showPassword, setShowPassword] = useState(false);
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    password: '',
-  });
+  const { showPassword, formData, setShowPassword, handleChange, navigate } =
+    useContext(AuthContext);
   const { name, email, password } = formData;
-  const navigate = useNavigate();
-
-  function onChange(e) {
-    setFormData((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
-  }
 
   async function onSubmit(e) {
     e.preventDefault();
@@ -44,7 +33,7 @@ export default function SignUp() {
       await setDoc(doc(db, 'users', user.uid), formDataCopy);
       navigate('/');
     } catch (error) {
-      console.log(error);
+      toast.error('Something went wrong :(');
     }
   }
   return (
@@ -56,21 +45,21 @@ export default function SignUp() {
             placeholder='Name'
             name='name'
             value={name}
-            onChange={onChange}
+            onChange={handleChange}
           />
           <input
             type='email'
             placeholder='Email'
             name='email'
             value={email}
-            onChange={onChange}
+            onChange={handleChange}
           />
           <input
             type={showPassword ? 'text' : 'password'}
             placeholder='Password'
             name='password'
             value={password}
-            onChange={onChange}
+            onChange={handleChange}
           />
           <div>
             <button type='submit'>Sign Up</button>
