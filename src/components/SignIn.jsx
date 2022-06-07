@@ -2,6 +2,7 @@ import { useState, useContext } from 'react';
 import { toast } from 'react-toastify';
 import { Link, useNavigate } from 'react-router-dom';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa';
 import UserContext from '../context/UserContext';
 
 import React from 'react';
@@ -62,13 +63,28 @@ export default function SignIn({ showPassword, toggleLogin, togglePassword }) {
 
         <label className='flex flex-col mt-4 font-semibold text-lg w-4/5'>
           Password
-          <input
-            type={showPassword ? 'text' : 'password'}
-            className='h-10 rounded border-solid border-2 focus:scale-105 duration-500'
-            name='password'
-            value={password}
-            onChange={handleChange}
-          />
+          <div className='flex items-center w-full relative'>
+            <input
+              type={showPassword ? 'text' : 'password'}
+              className='h-10 w-full rounded border-solid border-2 focus:scale-105 duration-500'
+              name='password'
+              value={password}
+              onChange={handleChange}
+            />
+            {showPassword ? (
+              <FaRegEyeSlash
+                size={20}
+                className='h-10 right-5 absolute cursor-pointer'
+                onClick={togglePassword}
+              />
+            ) : (
+              <FaRegEye
+                size={20}
+                className='h-10 right-5 absolute cursor-pointer'
+                onClick={togglePassword}
+              />
+            )}
+          </div>
         </label>
         <div className='flex flex-col justify-evenly items-center w-full h-56 mt-5'>
           <button className='btn btn-secondary w-4/5 text-lg' type='submit'>

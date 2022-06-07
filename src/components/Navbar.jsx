@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useContext } from 'react';
+import { capitalizeFirst } from '../utilities/helper';
 import UserContext from '../context/UserContext';
 
 export default function Navbar() {
@@ -17,7 +18,7 @@ export default function Navbar() {
         </ul>
         <div className='flex w-1/2 justify-end items-center text-primary-content text-xl font-bold pr-5'>
           {user ? (
-            <h4>Welcome, {user.displayName}!</h4>
+            <h4>Welcome, {capitalizeFirst(user.displayName)}!</h4>
           ) : (
             <Link to='/auth'>Login / Sign-up</Link>
           )}
