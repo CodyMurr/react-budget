@@ -54,7 +54,7 @@ export default function SignIn({ showPassword, toggleLogin, togglePassword }) {
           Email
           <input
             type='text'
-            className='h-10 rounded border-solid border-2 focus:scale-105 duration-500'
+            className='h-10 w-full input input-secondary focus:scale-105 duration-500'
             name='email'
             value={email}
             onChange={handleChange}
@@ -66,7 +66,7 @@ export default function SignIn({ showPassword, toggleLogin, togglePassword }) {
           <div className='flex items-center w-full relative'>
             <input
               type={showPassword ? 'text' : 'password'}
-              className='h-10 w-full rounded border-solid border-2 focus:scale-105 duration-500'
+              className='h-10 w-full input input-secondary focus:scale-105 duration-500'
               name='password'
               value={password}
               onChange={handleChange}
@@ -74,24 +74,24 @@ export default function SignIn({ showPassword, toggleLogin, togglePassword }) {
             {showPassword ? (
               <FaRegEyeSlash
                 size={20}
-                className='h-10 right-5 absolute cursor-pointer'
+                className='h-10 right-5 absolute cursor-pointer tooltip-right'
                 onClick={togglePassword}
               />
             ) : (
               <FaRegEye
                 size={20}
-                className='h-10 right-5 absolute cursor-pointer'
+                className='h-10 right-5 absolute cursor-pointer tooltip-right'
                 onClick={togglePassword}
               />
             )}
           </div>
         </label>
         <div className='flex flex-col justify-evenly items-center w-full h-56 mt-5'>
-          <button className='btn btn-secondary w-4/5 text-lg' type='submit'>
+          <button className='btn btn-primary w-4/5 text-lg' type='submit'>
             Sign In
           </button>
           <Link to='/forgot-password' className='w-3/5 text-center'>
-            <p className='italic text-2xl cursor-pointer hover:underline hover:text-primary'>
+            <p className='italic text-2xl cursor-pointer hover:underline hover:text-secondary'>
               Forgot password?
             </p>
           </Link>

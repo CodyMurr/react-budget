@@ -9,6 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import ForgotPassword from './components/ForgotPassword';
 import SignUp from './components/SignUp';
 import SignIn from './components/SignIn';
+import Settings from './pages/Settings';
 
 export default function App() {
   return (
@@ -20,6 +21,7 @@ export default function App() {
             <Route path='/' element={<Home />} />
             <Route path='/about' element={<About />} />
             <Route path='/auth' element={<AuthPage />} />
+            <Route path='/settings' element={<Settings />} />
             <Route path='/forgot-password' element={<ForgotPassword />} />
           </Routes>
         </Router>

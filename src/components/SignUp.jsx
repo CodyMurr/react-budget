@@ -9,7 +9,6 @@ import { setDoc, doc, serverTimestamp } from 'firebase/firestore';
 import { db } from '../firebase.config';
 import { toast } from 'react-toastify';
 import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa';
-
 import UserContext from '../context/UserContext';
 
 export default function SignUp({ showPassword, toggleLogin, togglePassword }) {
@@ -67,7 +66,7 @@ export default function SignUp({ showPassword, toggleLogin, togglePassword }) {
           Name
           <input
             type='text'
-            className='h-10 rounded border-solid border-2 focus:scale-105 duration-500'
+            className='h-10 input input-primary focus:scale-105 duration-500'
             name='name'
             value={name}
             autoComplete='off'
@@ -78,7 +77,7 @@ export default function SignUp({ showPassword, toggleLogin, togglePassword }) {
           Email
           <input
             type='email'
-            className='h-10 rounded border-solid border-2 focus:border-primary focus:scale-105 duration-500'
+            className='h-10 input input-primary focus:scale-105 duration-500'
             name='email'
             value={email}
             autoComplete='off'
@@ -90,7 +89,7 @@ export default function SignUp({ showPassword, toggleLogin, togglePassword }) {
           <div className='flex items-center w-full relative'>
             <input
               type={showPassword ? 'text' : 'password'}
-              className='h-10 w-full rounded border-solid border-2 focus:scale-105 duration-500'
+              className='h-10 w-full input input-primary focus:scale-105 duration-500'
               name='password'
               value={password}
               onChange={handleChange}
@@ -98,7 +97,7 @@ export default function SignUp({ showPassword, toggleLogin, togglePassword }) {
             {showPassword ? (
               <FaRegEyeSlash
                 size={20}
-                className='h-10 right-5 absolute cursor-pointer'
+                className='h-10 right-5 absolute cursor-pointer text-primary-content'
                 onClick={togglePassword}
               />
             ) : (

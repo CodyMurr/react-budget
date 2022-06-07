@@ -8,17 +8,20 @@ export default function Navbar() {
   return (
     <>
       <nav className='flex items-center w-full bg-base-200 h-20 shadow-md shadow-base-300'>
-        <ul className='flex justify-evenly w-1/2 text-primary-content text-2xl font-extrabold'>
+        <ul className='flex justify-between w-1/2 ml-5 text-primary-content text-2xl font-extrabold'>
           <Link to='/'>
             <li>Home</li>
           </Link>
           <Link to='/about'>
             <li>About</li>
           </Link>
+          <Link to='/settings'>
+            <li>Settings</li>
+          </Link>
         </ul>
         <div className='flex w-1/2 justify-end items-center text-primary-content text-xl font-bold pr-5'>
           {user ? (
-            <h4>Welcome, {capitalizeFirst(user.displayName)}!</h4>
+            <h4>Welcome, {user.displayName}!</h4>
           ) : (
             <Link to='/auth'>Login / Sign-up</Link>
           )}
