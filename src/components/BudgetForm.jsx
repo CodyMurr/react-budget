@@ -35,28 +35,33 @@ export default function BudgetForm({ toggleForm }) {
     <div>
       <form className='form-control flex flex-col items-center w-1/3'>
         <h2 className='text-2xl font-bold text-secondary'>New Budget</h2>
-        <input
-          type='text'
-          name='totalAmount'
-          className='input input-ghost shadow-md w-full'
-          placeholder='Amount'
-          onChange={handleChange}
-        />
-
-        <input
-          type='date'
-          name='startDate'
-          className='input input-ghost shadow-md w-full'
-          placeholder='Start Date'
-          onChange={handleChange}
-        />
-        <input
-          type='date'
-          name='endDate'
-          className='input input-ghost shadow-md w-full'
-          placeholder='End Date'
-          onChange={handleChange}
-        />
+        <label className='w-full'>
+          Amount
+          <input
+            type='text'
+            name='totalAmount'
+            className='input input-ghost shadow-md w-full'
+            onChange={handleChange}
+          />
+        </label>
+        <label className='w-full'>
+          Start Date
+          <input
+            type='date'
+            name='startDate'
+            className='input input-ghost shadow-md w-full'
+            onChange={handleChange}
+          />
+        </label>
+        <label className='w-full'>
+          End Date
+          <input
+            type='date'
+            name='endDate'
+            className='input input-ghost shadow-md w-full'
+            onChange={handleChange}
+          />
+        </label>
         <div className='flex justify-between w-full'>
           <button className='btn btn-primary w-1/2' type='submit'>
             Save
