@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useContext } from 'react';
 import { capitalizeFirst } from '../utilities/helper';
+import { FaUserCircle } from 'react-icons/fa';
 import UserContext from '../context/UserContext';
 
 export default function Navbar() {
@@ -19,9 +20,12 @@ export default function Navbar() {
             <li>Settings</li>
           </Link>
         </ul>
-        <div className='flex w-1/2 justify-end items-center text-primary-content text-xl font-bold pr-5'>
+        <div className='flex flex-col w-1/2 justify-center items-end text-primary-content text-xl font-bold pr-5'>
           {user ? (
-            <h4>Welcome, {user.displayName}!</h4>
+            <div className='flex flex-col w-1/4 h-full justify-between items-center'>
+              <FaUserCircle size={30} />
+              <p>{user.displayName}</p>
+            </div>
           ) : (
             <Link to='/auth'>Login / Sign-up</Link>
           )}

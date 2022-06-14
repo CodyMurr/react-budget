@@ -3,7 +3,7 @@ import SignUp from '../components/SignUp';
 import SignIn from '../components/SignIn';
 
 export default function AuthPage() {
-  const [showLogin, setShowLogin] = useState(false);
+  const [showLogin, setShowLogin] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
 
   function toggleLogin() {

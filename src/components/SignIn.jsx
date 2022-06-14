@@ -91,10 +91,16 @@ export default function SignIn({ showPassword, toggleLogin, togglePassword }) {
             Sign In
           </button>
           <Link to='/forgot-password' className='w-3/5 text-center'>
-            <p className='italic text-2xl cursor-pointer hover:underline hover:text-secondary'>
+            <p className='text-xl cursor-pointer hover:underline hover:text-secondary'>
               Forgot password?
             </p>
           </Link>
+          <p
+            className='italic text-2xl cursor-pointer hover:underline hover:text-secondary'
+            onClick={toggleLogin}
+          >
+            Not a Member?
+          </p>
         </div>
       </form>
     </div>
