@@ -22,10 +22,13 @@ export default function Navbar() {
         </ul>
         <div className='flex flex-col w-1/2 justify-center items-end text-primary-content text-xl font-bold pr-5'>
           {user ? (
-            <div className='flex flex-col w-1/4 h-full justify-between items-center'>
+            <Link
+              to='/profile'
+              className='flex flex-col w-1/4 h-full justify-between items-center'
+            >
               <FaUserCircle size={30} />
               <p>{user.displayName}</p>
-            </div>
+            </Link>
           ) : (
             <Link to='/auth'>Login / Sign-up</Link>
           )}

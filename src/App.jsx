@@ -10,6 +10,7 @@ import ForgotPassword from './components/ForgotPassword';
 import SignUp from './components/SignUp';
 import SignIn from './components/SignIn';
 import Settings from './pages/Settings';
+import Profile from './pages/Profile';
 
 export default function App() {
   return (
@@ -23,6 +24,7 @@ export default function App() {
             <Route path='/auth' element={<AuthPage />} />
             <Route path='/settings' element={<Settings />} />
             <Route path='/forgot-password' element={<ForgotPassword />} />
+            <Route path='/profile' element={<Profile />} />
           </Routes>
         </Router>
         <ToastContainer />
