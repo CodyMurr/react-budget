@@ -10,6 +10,7 @@ import { db } from '../firebase.config';
 import { toast } from 'react-toastify';
 import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa';
 import UserContext from '../context/UserContext';
+import OAuth from './OAuth';
 
 export default function SignUp({ showPassword, toggleLogin, togglePassword }) {
   const { initializeUser } = useContext(UserContext);
@@ -113,6 +114,7 @@ export default function SignUp({ showPassword, toggleLogin, togglePassword }) {
           <button className='btn btn-secondary w-4/5 text-lg' type='submit'>
             Sign Up
           </button>
+          <OAuth />
           <p
             className='italic text-2xl cursor-pointer hover:underline hover:text-primary'
             onClick={toggleLogin}

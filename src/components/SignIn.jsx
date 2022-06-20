@@ -6,6 +6,7 @@ import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa';
 import UserContext from '../context/UserContext';
 
 import React from 'react';
+import OAuth from './OAuth';
 
 export default function SignIn({ showPassword, toggleLogin, togglePassword }) {
   const { initializeUser } = useContext(UserContext);
@@ -90,6 +91,7 @@ export default function SignIn({ showPassword, toggleLogin, togglePassword }) {
           <button className='btn btn-primary w-4/5 text-lg' type='submit'>
             Sign In
           </button>
+          <OAuth />
           <Link to='/forgot-password' className='w-3/5 text-center'>
             <p className='text-xl cursor-pointer hover:underline hover:text-secondary'>
               Forgot password?
