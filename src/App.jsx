@@ -3,7 +3,6 @@ import { ToastContainer } from 'react-toastify';
 import { UserProvider } from './context/UserContext';
 import Home from './pages/Home';
 import About from './pages/About';
-import AuthPage from './pages/AuthPage';
 import Navbar from './components/Navbar';
 import 'react-toastify/dist/ReactToastify.css';
 import ForgotPassword from './components/ForgotPassword';
@@ -21,10 +20,8 @@ export default function App() {
           <Routes>
             <Route path='/' element={<Home />} />
             <Route path='/about' element={<About />} />
-            <Route path='/auth' element={<AuthPage />}>
-              <Route path='/sign-up' element={<SignUp />} />
-              <Route path='/sign-in' element={<SignIn />} />
-            </Route>
+            <Route path='/sign-up' element={<SignUp />} />
+            <Route path='/sign-in' element={<SignIn />} />
             <Route path='/settings' element={<Settings />} />
             <Route path='/forgot-password' element={<ForgotPassword />} />
             <Route path='/profile' element={<Profile />} />

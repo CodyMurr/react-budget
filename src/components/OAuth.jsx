@@ -10,7 +10,8 @@ import UserContext from '../context/UserContext';
 export default function OAuth() {
   const navigate = useNavigate();
   const location = useLocation();
-  const { setUser } = useContext(UserContext);
+
+  const { initializeUser } = useContext(UserContext);
 
   async function onGoogleClick() {
     try {
@@ -18,6 +19,7 @@ export default function OAuth() {
       const provider = new GoogleAuthProvider();
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
+
       const docRef = doc(db, 'users', user.uid);
       const docSnap = await getDoc(docRef);
       if (!docSnap.exists()) {
@@ -27,7 +29,7 @@ export default function OAuth() {
           timestamp: serverTimestamp(),
         });
       }
-      setUser(user);
+      initializeUser(user);
       navigate('/');
     } catch (error) {
       toast.error('Could not authorize with Google...');

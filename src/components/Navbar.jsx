@@ -8,7 +8,7 @@ export default function Navbar() {
   const { user } = useContext(UserContext);
   return (
     <>
-      <nav className='flex items-center w-full bg-base-200 h-20 shadow-md shadow-base-300'>
+      <nav className='flex items-center w-full bg-primary h-20 shadow-md shadow-base-300'>
         <ul className='flex justify-between w-1/2 ml-5 text-primary-content text-2xl font-extrabold'>
           <Link to='/'>
             <li>Home</li>
@@ -30,7 +30,7 @@ export default function Navbar() {
               <p>{user.displayName}</p>
             </Link>
           ) : (
-            <Link to='/auth'>Login / Sign-up</Link>
+            <Link to='/sign-in'>Login / Sign-up</Link>
           )}
         </div>
       </nav>

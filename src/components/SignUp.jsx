@@ -12,8 +12,9 @@ import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa';
 import UserContext from '../context/UserContext';
 import OAuth from './OAuth';
 
-export default function SignUp({ showPassword, toggleLogin, togglePassword }) {
-  const { initializeUser } = useContext(UserContext);
+export default function SignUp() {
+  const { initializeUser, showPassword, togglePassword } =
+    useContext(UserContext);
 
   const [formData, setFormData] = useState({
     name: '',
@@ -57,10 +58,10 @@ export default function SignUp({ showPassword, toggleLogin, togglePassword }) {
     }
   }
   return (
-    <div className='flex flex-col items-center w-1/3 mt-5 p-5 absolute top-1/4'>
+    <div className='flex flex-col items-center w-full mt-5 p-5 absolute top-1/4'>
       <h2 className='text-3xl text-primary-content font-bold'>Sign Up</h2>
       <form
-        className='flex flex-col items-center w-full text-primary-content p-7'
+        className='flex flex-col items-center w-1/3 text-primary-content p-7'
         onSubmit={onSubmit}
       >
         <label className='flex flex-col mt-4 font-semibold text-lg w-4/5'>
@@ -117,7 +118,7 @@ export default function SignUp({ showPassword, toggleLogin, togglePassword }) {
           <OAuth />
           <p
             className='italic text-2xl cursor-pointer hover:underline hover:text-primary'
-            onClick={toggleLogin}
+            onClick={() => navigate('/sign-in')}
           >
             Already a member?
           </p>
