@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import {
 	BsFillHouseDoorFill,
 	BsBank2,
@@ -12,10 +12,14 @@ import * as userService from '../utilities/users-service';
 import ThemeToggle from './custom/ThemeToggle';
 
 export default function NavBar({ user, setUser, theme, toggleTheme }) {
+	const navigate = useNavigate();
+
 	function handleLogout() {
 		userService.logOut();
 		setUser(null);
+		navigate('/');
 	}
+
 	return (
 		<div className='mt-0 flex w-1/12 h-screen bg-secondary'>
 			<nav className='flex flex-col w-full justify-evenly'>
@@ -59,11 +63,11 @@ export default function NavBar({ user, setUser, theme, toggleTheme }) {
 							<BiUserCircle className='text-secondary-content' size={50} />
 						</Link>
 						<p className='text-secondary-content w-full text-center'>
-							{user ? (
+							{user && (
 								<Link onClick={handleLogout} to=''>
 									Log Out
 								</Link>
-							) : null}
+							)}
 						</p>
 					</li>
 				</ul>
