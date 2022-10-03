@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { FaPlus } from 'react-icons/fa';
+import { toggleUI } from '../global-functions';
 import Budget from '../components/Budget';
 import BudgetForm from '../components/BudgetForm';
 import * as budgetsAPI from '../utilities/budgets-api';
@@ -13,6 +14,7 @@ export default function BudgetsPage({
 	setCategories,
 }) {
 	const [showBudgetForm, setShowBudgetForm] = useState(false);
+	const [showBudgetDetail, setShowBudgetDetail] = useState(false);
 
 	const isMounted = useRef(true);
 
@@ -31,28 +33,44 @@ export default function BudgetsPage({
 		}
 		return () => (isMounted.current = false);
 	});
+
+	function toggleForm() {
+		toggleUI(showBudgetForm, setShowBudgetForm);
+	}
+
+	function toggleDetail() {
+		toggleUI(showBudgetDetail, setShowBudgetDetail);
+	}
+
+	const budgetInfo = budgets.map((b, i) => (
+		<Budget
+			budget={b}
+			showBudgetDetail={showBudgetDetail}
+			toggleDetail={toggleDetail}
+			key={`${b.name}-${i}`}
+		/>
+	));
+
 	return (
 		<div className='w-full flex flex-col'>
-			{budgets.length ? (
-				budgets.map((b, i) => <Budget budget={b} key={`${b.name}-${i}`} />)
-			) : (
-				<em>No budgets yet</em>
-			)}
-			{showBudgetForm ? (
-				<BudgetForm
-					user={user}
-					budgets={budgets}
-					setBudgets={setBudgets}
-					categories={categories}
-				/>
-			) : (
-				<span
-					className='flex w-44 justify-between items-center p-2 rounded text-xl text-primary cursor-pointer hover:text-primary-content hover:bg-primary'
-					onClick={() => setShowBudgetForm(true)}>
-					<FaPlus size={20} />
-					<p>New Budget</p>
-				</span>
-			)}
+			<section className='w-full flex flex-wrap justify-evenly'>
+				{budgets.length ? budgetInfo : <em>No budgets yet</em>}
+			</section>
+
+			<label
+				className='modal-button flex w-44 justify-between items-center p-2 rounded text-xl text-primary cursor-pointer hover:text-primary-content hover:bg-primary'
+				onClick={toggleForm}>
+				<FaPlus size={20} />
+				<p>New Budget</p>
+			</label>
+			<BudgetForm
+				user={user}
+				budgets={budgets}
+				setBudgets={setBudgets}
+				categories={categories}
+				showBudgetForm={showBudgetForm}
+				toggleForm={toggleForm}
+			/>
 		</div>
 	);
 }

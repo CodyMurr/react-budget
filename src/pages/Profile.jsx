@@ -16,9 +16,16 @@ export default function Profile({ user }) {
 			</section>
 			<form className='w-full flex flex-col items-center'>
 				{updateInfo ? (
-					<button className='text-accent font-bold text-lg' type='submit'>
-						Save Changes
-					</button>
+					<span className='flex flex-col w-full'>
+						<button className='text-accent font-bold text-lg' type='submit'>
+							Save Changes
+						</button>
+						<p
+							className='text-error w-full text-center hover:cursor-pointer hover:underline'
+							onClick={toggleMode}>
+							cancel
+						</p>
+					</span>
 				) : (
 					<span
 						className='flex justify-evenly items-center w-1/12 cursor-pointer ml-5 text-accent text-lg font-bold'

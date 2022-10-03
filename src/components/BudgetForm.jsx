@@ -1,7 +1,14 @@
 import { create } from '../utilities/budgets-api';
 import { useState } from 'react';
 
-export default function BudgetForm({ user, categories, budgets, setBudgets }) {
+export default function BudgetForm({
+	user,
+	categories,
+	budgets,
+	setBudgets,
+	showBudgetForm,
+	toggleForm,
+}) {
 	const [formData, setFormData] = useState({
 		category: '',
 		frequency: '',
@@ -21,6 +28,10 @@ export default function BudgetForm({ user, categories, budgets, setBudgets }) {
 		try {
 			const budget = await create(formData);
 			setBudgets([budget, ...budgets]);
+			setFormData({
+				category: '',
+				amount: '',
+			});
 		} catch {
 			setError('Something went wrong - please try again later');
 		}
@@ -34,11 +45,19 @@ export default function BudgetForm({ user, categories, budgets, setBudgets }) {
 	}
 
 	return (
-		<div className='w-full h-full flex flex-col justify-center items-center'>
+		<div
+			className={`modal ${
+				showBudgetForm && 'modal-open'
+			} flex flex-col justify-center items-center`}>
 			<form
-				className='flex flex-col w-1/4 h-1/3 justify-evenly items-center'
+				className='modal-box relative flex flex-col w-1/2 justify-evenly items-center'
 				onSubmit={handleSubmit}>
-				<label className='flex flex-col w-full'>
+				<label
+					className='btn btn-sm btn-circle absolute right-2 top-2'
+					onClick={toggleForm}>
+					✕
+				</label>
+				<label className='flex flex-col w-full m-3'>
 					Category:
 					<select
 						className='input input-primary rounded-md'
@@ -49,20 +68,8 @@ export default function BudgetForm({ user, categories, budgets, setBudgets }) {
 						{catOpts}
 					</select>
 				</label>
-				<label className='flex flex-col w-full'>
-					Duration:
-					<input
-						className='input input-primary rounded-md'
-						type='text'
-						name='frequency'
-						value={formData.frequency}
-						onChange={handleChange}
-						autoComplete='off'
-					/>
-					<em className='text-base-300'>ex: 'weekly', 'monthly', etc...</em>
-				</label>
 
-				<label className='flex flex-col w-full'>
+				<label className='flex flex-col w-full m-3'>
 					Amount:
 					<input
 						className='input input-primary rounded-md'
@@ -73,11 +80,13 @@ export default function BudgetForm({ user, categories, budgets, setBudgets }) {
 						autoComplete='off'
 					/>
 				</label>
-				<button
-					className='btn btn-accent w-full text-lg text-accent-content rounded-md'
-					type='submit'>
-					Save
-				</button>
+				<section className='modal-action'>
+					<button
+						className='btn btn-accent w-full text-lg text-accent-content rounded-md m-3'
+						type='submit'>
+						Save
+					</button>
+				</section>
 			</form>
 			<p className='text-lg text-error'>{error}</p>
 		</div>
