@@ -1,0 +1,21 @@
+const Budget = require('../../models/budget');
+
+module.exports = {
+	getAll,
+	create,
+};
+
+async function getAll(req, res) {
+	const budgets = await Budget.find({ user: req.user });
+	res.json(budgets);
+}
+
+async function create(req, res) {
+	req.user = req.body.user;
+	try {
+		const budget = await Budget.create(req.body);
+		res.json(budget);
+	} catch (error) {
+		res.status(400).json(error);
+	}
+}

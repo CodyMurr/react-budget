@@ -53,12 +53,6 @@ export default function Profile({ user }) {
 					/>
 				</section>
 			</form>
-			<span className='absolute bottom-0 right-2 w-2/5 flex justify-end'>
-				<p className='font-bold flex justify-end pr-2'>User-ID: </p>{' '}
-				<p className='text-accent-content text-lg flex justify-end'>
-					{user._id}
-				</p>
-			</span>
 		</div>
 	);
 }

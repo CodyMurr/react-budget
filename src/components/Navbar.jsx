@@ -58,7 +58,7 @@ export default function NavBar({ user, setUser, theme, toggleTheme }) {
 					</li>
 					<li className='text-secondary-content border-b-2 border-b-secondary-content w-full h-1/4'>
 						<Link
-							to={user ? '/profile' : '/login'}
+							to={user && '/profile'}
 							className='w-full h-4/5 flex flex-col justify-center items-center text-secondary-content'>
 							<BiUserCircle className='text-secondary-content' size={50} />
 						</Link>
