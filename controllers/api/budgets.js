@@ -11,7 +11,7 @@ async function getAll(req, res) {
 }
 
 async function create(req, res) {
-	req.user = req.body.user;
+	req.body.user = req.user._id;
 	try {
 		const budget = await Budget.create(req.body);
 		res.json(budget);
