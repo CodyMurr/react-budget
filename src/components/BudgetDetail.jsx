@@ -5,7 +5,7 @@ import { toggleUI } from '../global-functions';
 export default function BudgetDetail({
 	budget,
 	showBudgetDetail,
-	toggleDetail,
+	setShowBudgetDetail,
 }) {
 	const [editMode, setEditMode] = useState(false);
 
@@ -18,7 +18,7 @@ export default function BudgetDetail({
 			<form className='modal-box relative flex flex-col w-1/2 justify-evenly items-center'>
 				<label
 					className='btn btn-sm btn-circle absolute right-2 top-2'
-					onClick={toggleDetail}>
+					onClick={() => setShowBudgetDetail(!showBudgetDetail)}>
 					✕
 				</label>
 				{editMode ? (

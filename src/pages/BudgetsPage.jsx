@@ -14,7 +14,6 @@ export default function BudgetsPage({
 	setCategories,
 }) {
 	const [showBudgetForm, setShowBudgetForm] = useState(false);
-	const [showBudgetDetail, setShowBudgetDetail] = useState(false);
 
 	const isMounted = useRef(true);
 
@@ -38,17 +37,8 @@ export default function BudgetsPage({
 		toggleUI(showBudgetForm, setShowBudgetForm);
 	}
 
-	function toggleDetail() {
-		toggleUI(showBudgetDetail, setShowBudgetDetail);
-	}
-
 	const budgetInfo = budgets.map((b, i) => (
-		<Budget
-			budget={b}
-			showBudgetDetail={showBudgetDetail}
-			toggleDetail={toggleDetail}
-			key={`${b.name}-${i}`}
-		/>
+		<Budget budget={b} key={`${b.name}-${i}`} />
 	));
 
 	return (
