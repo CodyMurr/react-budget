@@ -4,6 +4,7 @@ import { toggleUI } from '../global-functions';
 
 export default function BudgetDetail({
 	budget,
+	categories,
 	showBudgetDetail,
 	setShowBudgetDetail,
 }) {
@@ -53,7 +54,7 @@ export default function BudgetDetail({
 					/>
 				</label>
 				<label className='font-bold text-lg w-full flex justify-between m-3'>
-					Amount:{' '}
+					Amount:
 					<input
 						className={`input justify-start w-1/3 mr-10 text-xl rounded-md  ${
 							editMode ? 'input-primary' : 'input-ghost'

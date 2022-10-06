@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import BudgetDetail from './BudgetDetail';
 
-export default function Budget({ budget }) {
+export default function Budget({ budget, catOpts }) {
 	const [showBudgetDetail, setShowBudgetDetail] = useState(false);
 
 	return (
@@ -15,6 +15,7 @@ export default function Budget({ budget }) {
 			</label>
 			<BudgetDetail
 				budget={budget}
+				catOpts={catOpts}
 				showBudgetDetail={showBudgetDetail}
 				setShowBudgetDetail={setShowBudgetDetail}
 			/>

@@ -1,27 +1,22 @@
 import { create } from '../utilities/budgets-api';
 import { useState } from 'react';
+import FormInput from './custom/FormInput';
+import SelectInput from './custom/SelectInput';
+import ExitButton from './custom/ExitButton';
 
 export default function BudgetForm({
-	user,
-	categories,
 	budgets,
+	categories,
 	setBudgets,
 	showBudgetForm,
 	toggleForm,
 }) {
 	const [formData, setFormData] = useState({
 		category: '',
-		frequency: '',
 		amount: '',
 	});
 
 	const [error, setError] = useState('');
-
-	const catOpts = categories.map((cat) => (
-		<option key={cat.name} value={cat.name}>
-			{cat.name}
-		</option>
-	));
 
 	async function handleSubmit(e) {
 		e.preventDefault();
@@ -52,34 +47,23 @@ export default function BudgetForm({
 			<form
 				className='modal-box relative flex flex-col w-1/2 justify-evenly items-center'
 				onSubmit={handleSubmit}>
-				<label
-					className='btn btn-sm btn-circle absolute right-2 top-2'
-					onClick={toggleForm}>
-					✕
-				</label>
-				<label className='flex flex-col w-full m-3'>
-					Category:
-					<select
-						className='input input-primary rounded-md'
-						name='category'
-						value={formData.category}
-						onChange={handleChange}>
-						<option value={null}>Select Category...</option>
-						{catOpts}
-					</select>
-				</label>
+				<ExitButton handleClick={toggleForm} />
 
-				<label className='flex flex-col w-full m-3'>
-					Amount:
-					<input
-						className='input input-primary rounded-md'
-						type='number'
-						name='amount'
-						value={formData.amount}
-						onChange={handleChange}
-						autoComplete='off'
-					/>
-				</label>
+				<SelectInput
+					title='Category'
+					formData={formData}
+					optData={categories}
+					defaultMsg='Select Category...'
+					handleChange={handleChange}
+				/>
+
+				<FormInput
+					title='Amount'
+					type='number'
+					formData={formData}
+					handleChange={handleChange}
+				/>
+
 				<section className='modal-action'>
 					<button
 						className='btn btn-accent w-full text-lg text-accent-content rounded-md m-3'
