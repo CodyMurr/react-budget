@@ -1,6 +1,8 @@
 import { useState } from 'react';
-import * as usersService from '../utilities/users-service';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import * as usersService from '../utilities/users-service';
+import PasswordToggle from './custom/PasswordToggle';
+import FormInput from './custom/FormInput';
 
 export default function LoginForm({
 	setUser,
@@ -41,41 +43,18 @@ export default function LoginForm({
 					className='w-1/2 relative'
 					autoComplete='off'
 					onSubmit={handleSubmit}>
-					<label className='flex flex-col text-xl relative'>
-						Email
-						<input
-							className='input input-bordered rounded-lg input-info'
-							type='text'
-							name='email'
-							value={credentials.email}
-							onChange={handleChange}
-							required
-						/>
-					</label>
-					<label className='flex flex-col text-xl relative'>
-						Password
-						<input
-							className='input input-bordered rounded-lg input-info'
-							type={showPassword ? 'text' : 'password'}
-							name='password'
-							value={credentials.password}
-							onChange={handleChange}
-							required
-						/>
-						{showPassword ? (
-							<FaEyeSlash
-								size={25}
-								className='absolute right-5 top-10 text-info'
-								onClick={togglePw}
-							/>
-						) : (
-							<FaEye
-								size={25}
-								className='absolute right-5 top-10 text-neutral'
-								onClick={togglePw}
-							/>
-						)}
-					</label>
+					<FormInput
+						title='Email'
+						formData={credentials}
+						handleChange={handleChange}
+					/>
+					<FormInput
+						title='Password'
+						formData={credentials}
+						handleChange={handleChange}
+					/>
+
+					<PasswordToggle isToggled={showPassword} toggle={togglePw} />
 					<section className='flex flex-col items-center justify-evenly w-full mt-4'>
 						<button className='btn btn-primary text-lg w-full' type='submit'>
 							Log In

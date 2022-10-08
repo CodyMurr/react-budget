@@ -1,16 +1,24 @@
 import React from 'react';
 
-export default function FormInput({ title, type, formData, handleChange }) {
+export default function FormInput({
+	styling,
+	title,
+	type,
+	formData,
+	handleChange,
+	isRequired,
+}) {
 	return (
-		<label className='flex flex-col w-full m-3'>
+		<label className='flex flex-col text-xl w-full my-3'>
 			{title}:
 			<input
-				className='input input-primary rounded-md'
+				className={styling}
 				type={type}
 				name={title.toLowerCase()}
 				value={formData[title.toLowerCase()]}
 				onChange={handleChange}
 				autoComplete='off'
+				required={isRequired}
 			/>
 		</label>
 	);
@@ -18,4 +26,6 @@ export default function FormInput({ title, type, formData, handleChange }) {
 
 FormInput.defaultProps = {
 	type: 'text',
+	styling: 'input input-primary rounded-md w-full',
+	isRequired: true,
 };

@@ -3,11 +3,9 @@ import {
 	BsFillHouseDoorFill,
 	BsBank2,
 	BsWindowSidebar,
-	// BsListUl,
 	BsGearFill,
 } from 'react-icons/bs';
 import { BiUserCircle } from 'react-icons/bi';
-// import { capitalize } from '../utilities/misc';
 import * as userService from '../utilities/users-service';
 import ThemeToggle from './custom/ThemeToggle';
 

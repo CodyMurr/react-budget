@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import { signUp } from '../utilities/users-service';
-import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import PasswordToggle from './custom/PasswordToggle';
+import FormInput from './custom/FormInput';
 
 export default class SignUpForm extends Component {
 	state = {
@@ -49,66 +50,34 @@ export default class SignUpForm extends Component {
 						className='w-1/2 relative'
 						autoComplete='off'
 						onSubmit={this.handleSubmit}>
-						<label className='flex flex-col text-xl relative'>
-							Name
-							<input
-								className='input input-bordered rounded-lg input-info'
-								type='text'
-								name='name'
-								value={this.state.name}
-								onChange={this.handleChange}
-								required
-							/>
-						</label>
+						<FormInput
+							title='Name'
+							formData={this.state}
+							handleChange={this.handleChange}
+						/>
+						<FormInput
+							title='Email'
+							type='email'
+							formData={this.state}
+							handleChange={this.handleChange}
+						/>
+						<FormInput
+							title='Password'
+							type={this.props.showPassword ? 'password' : 'text'}
+							formData={this.state}
+							handleChange={this.handleChange}
+						/>
+						<FormInput
+							title='Confirm'
+							type={this.props.showPassword ? 'password' : 'text'}
+							formData={this.state}
+							handleChange={this.handleChange}
+						/>
 
-						<label className='flex flex-col text-xl relative'>
-							Email
-							<input
-								className='input input-bordered rounded-lg input-info'
-								type='text'
-								name='email'
-								value={this.state.email}
-								onChange={this.handleChange}
-								required
-							/>
-						</label>
-
-						<label className='flex flex-col text-xl relative'>
-							Password
-							<input
-								className='input input-bordered rounded-lg input-info'
-								type={this.props.showPassword ? 'text' : 'password'}
-								name='password'
-								value={this.state.password}
-								onChange={this.handleChange}
-								required
-							/>
-							{this.props.showPassword ? (
-								<FaEyeSlash
-									size={25}
-									className='absolute right-5 top-10 text-info'
-									onClick={this.props.togglePw}
-								/>
-							) : (
-								<FaEye
-									size={25}
-									className='absolute right-5 top-10 text-neutral'
-									onClick={this.props.togglePw}
-								/>
-							)}
-						</label>
-
-						<label className='flex flex-col text-xl relative'>
-							Confirm
-							<input
-								className='input input-bordered rounded-lg input-info'
-								type={this.props.showPassword ? 'text' : 'password'}
-								name='confirm'
-								value={this.state.confirm}
-								onChange={this.handleChange}
-								required
-							/>
-						</label>
+						<PasswordToggle
+							isToggled={this.props.showPassword}
+							toggle={this.props.togglePw}
+						/>
 
 						<section className='flex flex-col items-center justify-evenly mt-4'>
 							<button
