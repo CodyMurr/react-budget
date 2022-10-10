@@ -20,7 +20,7 @@ export default function App() {
 
 	return (
 		<main className='flex w-full h-screen relative' data-theme={THEMES[theme]}>
-			<NavBar user={user} setUser={setUser} setTheme={setTheme} />
+			<NavBar user={user} setUser={setUser} theme={theme} setTheme={setTheme} />
 			{user ? (
 				<Routes>
 					<Route path='/' element={<LandingPage user={user} />} />

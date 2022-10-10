@@ -9,7 +9,7 @@ import { BiUserCircle } from 'react-icons/bi';
 import * as userService from '../utilities/users-service';
 import ThemeToggle from './custom/ThemeToggle';
 
-export default function NavBar({ user, setUser, setTheme }) {
+export default function NavBar({ user, setUser, theme, setTheme }) {
 	const navigate = useNavigate();
 
 	function handleLogout() {
@@ -71,7 +71,7 @@ export default function NavBar({ user, setUser, setTheme }) {
 				</ul>
 
 				<section className='w-full h-1/2 flex flex-col justify-end items-center pb-3'>
-					<ThemeToggle setTheme={setTheme} />
+					<ThemeToggle theme={theme} setTheme={setTheme} />
 				</section>
 			</nav>
 		</div>
