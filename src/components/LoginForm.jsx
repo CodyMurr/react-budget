@@ -1,14 +1,14 @@
 import { useState } from 'react';
-import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import * as usersService from '../utilities/users-service';
-import PasswordToggle from './custom/PasswordToggle';
 import FormInput from './custom/FormInput';
+import ToggleContext from '../context/ToggleContext';
+import PasswordToggle from './custom/PasswordToggle';
 
 export default function LoginForm({
 	setUser,
 	showPassword,
 	toggleLogin,
-	togglePw,
+	togglePassword,
 }) {
 	const [credentials, setCredentials] = useState({
 		email: '',
@@ -37,39 +37,42 @@ export default function LoginForm({
 
 	return (
 		<>
-			<div className='w-full flex flex-col items-center justify-center h-full'>
-				<h2 className='text-4xl text-primary mb-5 font-bold'>Welcome Back!</h2>
-				<form
-					className='w-1/2 relative'
-					autoComplete='off'
-					onSubmit={handleSubmit}>
-					<FormInput
-						title='Email'
-						formData={credentials}
-						handleChange={handleChange}
-					/>
-					<FormInput
-						title='Password'
-						formData={credentials}
-						handleChange={handleChange}
-					/>
+			<form
+				className='w-1/2 relative'
+				autoComplete='off'
+				onSubmit={handleSubmit}>
+				<FormInput
+					title='Email'
+					formData={credentials}
+					handleChange={handleChange}
+				/>
+				<FormInput
+					title='Password'
+					type={showPassword ? 'text' : 'password'}
+					formData={credentials}
+					handleChange={handleChange}
+				/>
 
-					<PasswordToggle isToggled={showPassword} toggle={togglePw} />
-					<section className='flex flex-col items-center justify-evenly w-full mt-4'>
-						<button className='btn btn-primary text-lg w-full' type='submit'>
-							Log In
-						</button>
-						<span className='divider'>OR</span>
-						<button
-							className='btn btn-secondary text-lg w-full'
-							type='button'
-							onClick={toggleLogin}>
-							Sign Up
-						</button>
-					</section>
-				</form>
-			</div>
-			<p className='error-message'>&nbsp;{error}</p>
+				<PasswordToggle
+					showPassword={showPassword}
+					togglePassword={togglePassword}
+				/>
+
+				<section className='flex flex-col items-center justify-evenly w-full mt-4'>
+					<button className='btn btn-primary text-lg w-full' type='submit'>
+						Log In
+					</button>
+					<span className='divider'>OR</span>
+					<button
+						className='btn btn-secondary text-lg w-full'
+						type='button'
+						onClick={toggleLogin}>
+						Sign Up
+					</button>
+				</section>
+
+				<p className='error-message'>&nbsp;{error}</p>
+			</form>
 		</>
 	);
 }

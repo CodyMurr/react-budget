@@ -1,69 +1,61 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { FaPen } from 'react-icons/fa';
-import { toggleUI } from '../global-functions';
+import ToggleContext from '../context/ToggleContext';
+import BudgetEditor from './BudgetEditor';
+import DisabledInput from './custom/DisabledInput';
 
 export default function BudgetDetail({
 	budget,
 	showBudgetDetail,
 	toggleDetail,
+	categories,
 }) {
+	const { toggleState } = useContext(ToggleContext);
+
 	const [editMode, setEditMode] = useState(false);
 
 	function toggleEdit() {
-		toggleUI(editMode, setEditMode);
+		toggleState(setEditMode);
 	}
 
 	return (
 		<div className={`modal ${showBudgetDetail && 'modal-open'}`}>
-			<form className='modal-box relative flex flex-col w-1/2 justify-evenly items-center'>
-				<label
-					className='btn btn-sm btn-circle absolute right-2 top-2'
-					onClick={toggleDetail}>
-					✕
-				</label>
-				{editMode ? (
-					<span className='flex flex-col w-full'>
-						<button className='text-accent font-bold text-lg' type='submit'>
-							Save Changes
-						</button>
-						<p
-							className='text-error w-full text-center hover:cursor-pointer hover:underline'
-							onClick={toggleEdit}>
-							cancel
-						</p>
-					</span>
-				) : (
+			{editMode ? (
+				<BudgetEditor
+					budget={budget}
+					toggleEdit={toggleEdit}
+					categories={categories}
+					toggleDetail={toggleDetail}
+				/>
+			) : (
+				<div className='modal-box relative flex flex-col w-1/2 justify-evenly items-center'>
+					<label
+						className='btn btn-sm btn-circle absolute right-2 top-2'
+						onClick={toggleDetail}>
+						✕
+					</label>
+
 					<span
-						className='flex justify-evenly items-center w-1/4 cursor-pointer ml-5 text-accent text-lg font-bold'
+						className='flex justify-evenly items-center w-1/4 h-2/6 cursor-pointer ml-5 text-accent text-lg font-bold'
 						onClick={toggleEdit}>
 						<FaPen size={20} />
 						<p>Edit</p>
 					</span>
-				)}
 
-				<label className='font-bold text-lg w-full flex justify-between m-3'>
-					Category:{' '}
-					<input
-						className={`input justify-start w-1/3 mr-10 text-xl rounded-md  ${
-							editMode ? 'input-primary' : 'input-ghost'
-						}`}
-						type='text'
-						disabled={!editMode}
-						value={budget.category}
+					<DisabledInput
+						title='Category'
+						formData={{ ...budget }}
+						handleChange=''
+						isDisabled={true}
 					/>
-				</label>
-				<label className='font-bold text-lg w-full flex justify-between m-3'>
-					Amount:
-					<input
-						className={`input justify-start w-1/3 mr-10 text-xl rounded-md  ${
-							editMode ? 'input-primary' : 'input-ghost'
-						}`}
-						type='text'
-						disabled={!editMode}
-						value={budget.amount}
+					<DisabledInput
+						title='Amount'
+						formData={{ ...budget }}
+						handleChange=''
+						isDisabled={true}
 					/>
-				</label>
-			</form>
+				</div>
+			)}
 		</div>
 	);
 }

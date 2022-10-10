@@ -7,9 +7,10 @@ export default function FormInput({
 	formData,
 	handleChange,
 	isRequired,
+	isDisabled,
 }) {
 	return (
-		<label className='flex flex-col text-xl w-full my-3'>
+		<label className='flex flex-col text-xl w-full my-3 font-bold'>
 			{title}:
 			<input
 				className={styling}
@@ -19,6 +20,7 @@ export default function FormInput({
 				onChange={handleChange}
 				autoComplete='off'
 				required={isRequired}
+				disabled={isDisabled}
 			/>
 		</label>
 	);
@@ -28,4 +30,5 @@ FormInput.defaultProps = {
 	type: 'text',
 	styling: 'input input-primary rounded-md w-full',
 	isRequired: true,
+	isDisabled: false,
 };

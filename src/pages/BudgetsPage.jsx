@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
-import { toggleUI } from '../global-functions';
+import { useEffect, useRef, useState, useContext } from 'react';
+import ToggleContext from '../context/ToggleContext';
 import Budget from '../components/Budget';
 import BudgetForm from '../components/BudgetForm';
 import * as budgetsAPI from '../utilities/budgets-api';
@@ -12,6 +12,8 @@ export default function BudgetsPage({
 	categories,
 	setCategories,
 }) {
+	const { toggleState } = useContext(ToggleContext);
+
 	const [showBudgetForm, setShowBudgetForm] = useState(false);
 
 	const isMounted = useRef(true);
@@ -33,7 +35,7 @@ export default function BudgetsPage({
 	});
 
 	function toggleForm() {
-		toggleUI(showBudgetForm, setShowBudgetForm);
+		toggleState(setShowBudgetForm);
 	}
 
 	const budgetInfo = budgets.map((b, i) => (

@@ -18,18 +18,9 @@ export default function App() {
 	const [budgets, setBudgets] = useState([]);
 	const [categories, setCategories] = useState([]);
 
-	function toggleTheme() {
-		setTheme(theme * -1);
-	}
-
 	return (
 		<main className='flex w-full h-screen relative' data-theme={THEMES[theme]}>
-			<NavBar
-				user={user}
-				setUser={setUser}
-				theme={theme}
-				toggleTheme={toggleTheme}
-			/>
+			<NavBar user={user} setUser={setUser} setTheme={setTheme} />
 			{user ? (
 				<Routes>
 					<Route path='/' element={<LandingPage user={user} />} />

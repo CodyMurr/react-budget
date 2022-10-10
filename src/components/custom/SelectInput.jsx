@@ -13,7 +13,7 @@ export default function SelectInput({
 		</option>
 	));
 	return (
-		<label className='flex flex-col w-full m-3'>
+		<label className='flex flex-col w-full my-3 font-bold'>
 			{title}:
 			<select
 				className='input input-primary rounded-md'

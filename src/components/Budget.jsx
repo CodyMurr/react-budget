@@ -1,15 +1,16 @@
-import { useState } from 'react';
-import { toggleUI } from '../global-functions';
+import { useState, useContext } from 'react';
+import ToggleContext from '../context/ToggleContext';
 
 import BudgetDetail from './BudgetDetail';
 
-export default function Budget({ budget, catOpts }) {
+export default function Budget({ budget, categories }) {
+	const { toggleState } = useContext(ToggleContext);
+
 	const [showBudgetDetail, setShowBudgetDetail] = useState(false);
 
 	function toggleDetail() {
-		toggleUI(showBudgetDetail, setShowBudgetDetail);
+		toggleState(setShowBudgetDetail);
 	}
-
 	return (
 		<>
 			<label
@@ -20,7 +21,7 @@ export default function Budget({ budget, catOpts }) {
 			</label>
 			<BudgetDetail
 				budget={budget}
-				catOpts={catOpts}
+				categories={categories}
 				showBudgetDetail={showBudgetDetail}
 				toggleDetail={toggleDetail}
 			/>

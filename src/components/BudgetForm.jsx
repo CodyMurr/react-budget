@@ -27,6 +27,7 @@ export default function BudgetForm({
 				category: '',
 				amount: '',
 			});
+			toggleForm();
 		} catch {
 			setError('Something went wrong - please try again later');
 		}

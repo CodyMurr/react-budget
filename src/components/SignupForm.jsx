@@ -44,59 +44,57 @@ export default class SignUpForm extends Component {
 		const disable = this.state.password !== this.state.confirm;
 		return (
 			<>
-				<div className='w-full flex flex-col items-center justify-center h-full'>
-					<h2 className='text-3xl font-bold'>Register Account</h2>
-					<form
-						className='w-1/2 relative'
-						autoComplete='off'
-						onSubmit={this.handleSubmit}>
-						<FormInput
-							title='Name'
-							formData={this.state}
-							handleChange={this.handleChange}
-						/>
-						<FormInput
-							title='Email'
-							type='email'
-							formData={this.state}
-							handleChange={this.handleChange}
-						/>
-						<FormInput
-							title='Password'
-							type={this.props.showPassword ? 'password' : 'text'}
-							formData={this.state}
-							handleChange={this.handleChange}
-						/>
-						<FormInput
-							title='Confirm'
-							type={this.props.showPassword ? 'password' : 'text'}
-							formData={this.state}
-							handleChange={this.handleChange}
-						/>
+				<form
+					className='w-1/2 relative'
+					autoComplete='off'
+					onSubmit={this.handleSubmit}>
+					<FormInput
+						title='Name'
+						formData={this.state}
+						handleChange={this.handleChange}
+					/>
+					<FormInput
+						title='Email'
+						type='email'
+						formData={this.state}
+						handleChange={this.handleChange}
+					/>
+					<FormInput
+						title='Password'
+						type={this.props.showPassword ? 'password' : 'text'}
+						formData={this.state}
+						handleChange={this.handleChange}
+					/>
+					<FormInput
+						title='Confirm'
+						type={this.props.showPassword ? 'password' : 'text'}
+						formData={this.state}
+						handleChange={this.handleChange}
+					/>
 
-						<PasswordToggle
-							isToggled={this.props.showPassword}
-							toggle={this.props.togglePw}
-						/>
+					<PasswordToggle
+						showPassword={this.props.showPassword}
+						togglePassword={this.props.togglePassword}
+					/>
 
-						<section className='flex flex-col items-center justify-evenly mt-4'>
-							<button
-								className='btn btn-secondary text-lg w-full'
-								type='submit'
-								disabled={disable}>
-								Sign Up
-							</button>
-							<span className='divider'>OR</span>
-							<button
-								className='btn btn-primary text-lg w-full'
-								type='button'
-								onClick={this.props.toggleLogin}>
-								Log In
-							</button>
-						</section>
-					</form>
-				</div>
-				<p className='error-message'>&nbsp;{this.state.error}</p>
+					<section className='flex flex-col items-center justify-evenly mt-4'>
+						<button
+							className='btn btn-secondary text-lg w-full'
+							type='submit'
+							disabled={disable}>
+							Sign Up
+						</button>
+						<span className='divider'>OR</span>
+						<button
+							className='btn btn-primary text-lg w-full'
+							type='button'
+							onClick={this.props.toggleLogin}>
+							Log In
+						</button>
+					</section>
+
+					<p className='error-message'>&nbsp;{this.state.error}</p>
+				</form>
 			</>
 		);
 	}
