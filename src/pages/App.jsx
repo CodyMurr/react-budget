@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import NavBar from '../components/Navbar';
 import { getUser } from '../utilities/users-service';
+import NavBar from '../components/Navbar';
 import AuthPage from './AuthPage';
 import BudgetsPage from './BudgetsPage';
 import LandingPage from './LandingPage';

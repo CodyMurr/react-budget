@@ -6,6 +6,7 @@ export default function SelectInput({
 	optData,
 	defaultMsg,
 	handleChange,
+	styling,
 }) {
 	const options = optData.map((opt, i) => (
 		<option key={`${opt.name}-${i}`} value={opt.name}>
@@ -16,7 +17,7 @@ export default function SelectInput({
 		<label className='flex flex-col w-full my-3 font-bold'>
 			{title}:
 			<select
-				className='input input-primary rounded-md'
+				className={styling}
 				name={title.toLowerCase()}
 				value={formData[title.toLowerCase()]}
 				onChange={handleChange}>
@@ -26,3 +27,7 @@ export default function SelectInput({
 		</label>
 	);
 }
+
+SelectInput.defaultProps = {
+	styling: 'input input-primary rounded-md w-full',
+};

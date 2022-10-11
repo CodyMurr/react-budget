@@ -8,14 +8,14 @@ export default function ThemeToggle({ theme, setTheme }) {
 	return (
 		<label className='swap flex justify-center items-center w-28 h-1/2 relative'>
 			<input type='checkbox' />
-			<FaSun
-				size={30}
-				className='swap-on text-primary absolute bottom-5'
+			<FaMoon
+				size={40}
+				className='swap-on text-accent absolute bottom-5'
 				onClick={toggleTheme}
 			/>
-			<FaMoon
-				size={30}
-				className='swap-off text-accent absolute bottom-5'
+			<FaSun
+				size={40}
+				className='swap-off text-primary absolute bottom-5'
 				onClick={toggleTheme}
 			/>
 		</label>

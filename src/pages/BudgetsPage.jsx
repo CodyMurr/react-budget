@@ -15,6 +15,7 @@ export default function BudgetsPage({
 	const { toggleState } = useContext(ToggleContext);
 
 	const [showBudgetForm, setShowBudgetForm] = useState(false);
+	const [loading, setLoading] = useState(false);
 
 	const isMounted = useRef(true);
 
@@ -28,11 +29,13 @@ export default function BudgetsPage({
 			setCategories(res);
 		}
 		if (isMounted.current) {
+			setLoading(true);
 			getBudgets();
 			getCategories();
+			setLoading(false);
 		}
 		return () => (isMounted.current = false);
-	});
+	}, [setLoading, setCategories, setBudgets]);
 
 	function toggleForm() {
 		toggleState(setShowBudgetForm);
@@ -42,9 +45,14 @@ export default function BudgetsPage({
 		<Budget budget={b} categories={categories} key={`${b.name}-${i}`} />
 	));
 
+	if (loading) return <h3>Loading...</h3>;
+
 	return (
 		<div className='w-full flex flex-col'>
-			<section className='w-full flex flex-wrap justify-evenly'>
+			<h2 className='w-full bg-primary text-primary-content text-lg font-bold'>
+				Budget Summary
+			</h2>
+			<section className='w-full flex flex-col justify-start'>
 				{budgets.length ? budgetInfo : <em>No budgets yet</em>}
 			</section>
 
