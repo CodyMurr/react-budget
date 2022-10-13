@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState, useContext } from 'react';
 import ToggleContext from '../context/ToggleContext';
-import Budget from '../components/Budget';
 import BudgetForm from '../components/BudgetForm';
 import * as budgetsAPI from '../utilities/budgets-api';
 import * as categoriesAPI from '../utilities/categories-api';
 import ModalButton from '../components/custom/ModalButton';
+import BudgetList from '../components/BudgetList';
 
 export default function BudgetsPage({
 	budgets,
@@ -41,10 +41,6 @@ export default function BudgetsPage({
 		toggleState(setShowBudgetForm);
 	}
 
-	const budgetInfo = budgets.map((b, i) => (
-		<Budget budget={b} categories={categories} key={`${b.name}-${i}`} />
-	));
-
 	if (loading) return <h3>Loading...</h3>;
 
 	return (
@@ -52,11 +48,13 @@ export default function BudgetsPage({
 			<h2 className='w-full bg-primary text-primary-content text-lg font-bold'>
 				Budget Summary
 			</h2>
-			<section className='w-full flex flex-col justify-start'>
-				{budgets.length ? budgetInfo : <em>No budgets yet</em>}
-			</section>
+			{budgets.length ? (
+				<BudgetList budgets={budgets} categories={categories} />
+			) : (
+				<em>No budgets yet</em>
+			)}
 
-			<ModalButton handleClick={toggleForm} />
+			<ModalButton name='Budget' handleClick={toggleForm} />
 
 			<BudgetForm
 				budgets={budgets}

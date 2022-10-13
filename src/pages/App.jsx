@@ -6,6 +6,7 @@ import AuthPage from './AuthPage';
 import BudgetsPage from './BudgetsPage';
 import LandingPage from './LandingPage';
 import Profile from './Profile';
+import BudgetDetailPage from './BudgetDetailPage';
 
 const THEMES = {
 	1: 'corporate',
@@ -23,7 +24,10 @@ export default function App() {
 			<NavBar user={user} setUser={setUser} theme={theme} setTheme={setTheme} />
 			{user ? (
 				<Routes>
-					<Route path='/' element={<LandingPage user={user} />} />
+					<Route
+						path='/'
+						element={<LandingPage user={user} categories={categories} />}
+					/>
 					<Route path='/profile' element={<Profile user={user} />} />
 					<Route
 						path='/budgets'
@@ -37,6 +41,7 @@ export default function App() {
 							/>
 						}
 					/>
+					<Route path='/budgets/:budget' element={<BudgetDetailPage />} />
 					<Route path='/*' element={<Navigate to='/' />} />
 				</Routes>
 			) : (

@@ -1,9 +1,10 @@
 import { create } from '../utilities/budgets-api';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import FormContext from '../context/forms/FormContext';
 import FormInput from './custom/FormInput';
-import SelectInput from './custom/SelectInput';
 import ExitButton from './custom/ExitButton';
 import RadioInput from './custom/RadioInput';
+import CategoryList from './CategoryList';
 
 export default function BudgetForm({
 	budgets,
@@ -12,11 +13,12 @@ export default function BudgetForm({
 	showBudgetForm,
 	toggleForm,
 }) {
-	const [formData, setFormData] = useState({
-		category: '',
-		frequency: '',
-		amount: '',
-	});
+	const { formData, handleChange } = useContext(FormContext);
+	// const [formData, setFormData] = useState({
+	// 	category: '',
+	// 	frequency: '',
+	// 	amount: '',
+	// });
 
 	const [error, setError] = useState('');
 
@@ -25,21 +27,10 @@ export default function BudgetForm({
 		try {
 			const budget = await create(formData);
 			setBudgets([budget, ...budgets]);
-			setFormData({
-				category: '',
-				amount: '',
-			});
 			toggleForm();
 		} catch {
 			setError('Something went wrong - please try again later');
 		}
-	}
-
-	function handleChange(e) {
-		setFormData({
-			...formData,
-			[e.target.name]: e.target.value,
-		});
 	}
 
 	return (
@@ -52,11 +43,9 @@ export default function BudgetForm({
 				onSubmit={handleSubmit}>
 				<ExitButton handleClick={toggleForm} />
 
-				<SelectInput
-					title='Category'
+				<CategoryList
+					categories={categories}
 					formData={formData}
-					optData={categories}
-					defaultMsg='Select Category...'
 					handleChange={handleChange}
 				/>
 

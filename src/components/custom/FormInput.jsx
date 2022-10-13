@@ -1,7 +1,8 @@
 import React from 'react';
 
 export default function FormInput({
-	styling,
+	labelStyle,
+	inputStyle,
 	title,
 	type,
 	formData,
@@ -10,10 +11,11 @@ export default function FormInput({
 	isDisabled,
 }) {
 	return (
-		<label className='flex flex-col text-xl w-full my-3 font-bold'>
+		<label
+			className={`flex flex-col justify-evenly text-xl my-3 font-bold ${labelStyle}`}>
 			{title}:
 			<input
-				className={styling}
+				className={`input input-primary rounded-md ${inputStyle}`}
 				type={type}
 				name={title.toLowerCase()}
 				value={formData[title.toLowerCase()]}
@@ -28,7 +30,8 @@ export default function FormInput({
 
 FormInput.defaultProps = {
 	type: 'text',
-	styling: 'input input-primary rounded-md w-full',
+	labelStyle: 'h-1/4 w-full',
+	inputStyle: 'w-full',
 	isRequired: true,
 	isDisabled: false,
 };
