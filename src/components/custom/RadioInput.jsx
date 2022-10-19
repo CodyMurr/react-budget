@@ -10,7 +10,7 @@ export default function RadioInput({ title, name, formData, handleChange }) {
 				type='radio'
 				name={name}
 				id={title.toLowerCase()}
-				value={formData[name]}
+				value={title.toLowerCase()}
 				onChange={handleChange}
 			/>
 			{title}

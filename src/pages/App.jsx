@@ -24,10 +24,7 @@ export default function App() {
 			<NavBar user={user} setUser={setUser} theme={theme} setTheme={setTheme} />
 			{user ? (
 				<Routes>
-					<Route
-						path='/'
-						element={<LandingPage user={user} categories={categories} />}
-					/>
+					<Route path='/' element={<LandingPage user={user} />} />
 					<Route path='/profile' element={<Profile user={user} />} />
 					<Route
 						path='/budgets'
@@ -41,7 +38,10 @@ export default function App() {
 							/>
 						}
 					/>
-					<Route path='/budgets/:budget' element={<BudgetDetailPage />} />
+					<Route
+						path='/budgets/:budgetId'
+						element={<BudgetDetailPage budgets={budgets} />}
+					/>
 					<Route path='/*' element={<Navigate to='/' />} />
 				</Routes>
 			) : (

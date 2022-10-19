@@ -1,5 +1,15 @@
-import React from 'react';
+import { useContext } from 'react';
+// import { useParams } from 'react-router-dom';
+import BudgetContext from '../context/BudgetContext';
 
 export default function BudgetDetailPage() {
-	return <div></div>;
+	const { activeBudget } = useContext(BudgetContext);
+
+	return (
+		<main>
+			{activeBudget.category}
+			{activeBudget.amount}
+			{activeBudget.frequency}
+		</main>
+	);
 }

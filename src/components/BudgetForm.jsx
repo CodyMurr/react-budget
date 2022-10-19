@@ -1,6 +1,5 @@
 import { create } from '../utilities/budgets-api';
-import { useState, useContext } from 'react';
-import FormContext from '../context/forms/FormContext';
+import { useState } from 'react';
 import FormInput from './custom/FormInput';
 import ExitButton from './custom/ExitButton';
 import RadioInput from './custom/RadioInput';
@@ -13,12 +12,12 @@ export default function BudgetForm({
 	showBudgetForm,
 	toggleForm,
 }) {
-	const { formData, handleChange } = useContext(FormContext);
-	// const [formData, setFormData] = useState({
-	// 	category: '',
-	// 	frequency: '',
-	// 	amount: '',
-	// });
+	// const {  handleChange } = useContext(FormContext);
+	const [formData, setFormData] = useState({
+		category: '',
+		frequency: '',
+		amount: '',
+	});
 
 	const [error, setError] = useState('');
 
@@ -28,9 +27,17 @@ export default function BudgetForm({
 			const budget = await create(formData);
 			setBudgets([budget, ...budgets]);
 			toggleForm();
+			console.log(formData);
 		} catch {
 			setError('Something went wrong - please try again later');
 		}
+	}
+
+	function handleChange(e) {
+		setFormData({
+			...formData,
+			[e.target.name]: e.target.value,
+		});
 	}
 
 	return (
