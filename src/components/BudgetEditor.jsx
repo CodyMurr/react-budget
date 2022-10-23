@@ -3,9 +3,8 @@ import { FaTrashAlt } from 'react-icons/fa';
 import ExitButton from './custom/ExitButton';
 import FormInput from './custom/FormInput';
 import RadioInput from './custom/RadioInput';
-import ExpenseList from './ExpenseList';
 
-export default function BudgetEditor({ budget, toggleEdit, categories }) {
+export default function BudgetEditor({ budget, toggleEdit }) {
 	const [formData, setFormData] = useState({
 		category: '',
 		amount: '',
@@ -74,7 +73,6 @@ export default function BudgetEditor({ budget, toggleEdit, categories }) {
 						</span>
 					</section>
 				</section>
-				<ExpenseList budget={budget} categories={categories} />
 			</form>
 		</div>
 	);

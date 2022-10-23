@@ -20,7 +20,7 @@ budgetSchema.virtual('remainingAmt').get(function () {
 	const paidExp = this.expenses
 		.filter((exp) => exp.isPaid)
 		.reduce((total, val) => (total += val), 0);
-	return initial - paidExp;
+	return initial - paidExp || initial;
 });
 
 budgetSchema.methods.addExpense = async function (expenseId) {

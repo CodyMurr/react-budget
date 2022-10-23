@@ -7,6 +7,7 @@ import BudgetsPage from './BudgetsPage';
 import LandingPage from './LandingPage';
 import Profile from './Profile';
 import BudgetDetailPage from './BudgetDetailPage';
+import NewBudgetPage from './NewBudgetPage';
 
 const THEMES = {
 	1: 'corporate',
@@ -21,29 +22,41 @@ export default function App() {
 
 	return (
 		<main className='flex w-full h-screen relative' data-theme={THEMES[theme]}>
-			<NavBar user={user} setUser={setUser} theme={theme} setTheme={setTheme} />
 			{user ? (
-				<Routes>
-					<Route path='/' element={<LandingPage user={user} />} />
-					<Route path='/profile' element={<Profile user={user} />} />
-					<Route
-						path='/budgets'
-						element={
-							<BudgetsPage
-								user={user}
-								budgets={budgets}
-								setBudgets={setBudgets}
-								categories={categories}
-								setCategories={setCategories}
-							/>
-						}
+				<>
+					<NavBar
+						user={user}
+						setUser={setUser}
+						theme={theme}
+						setTheme={setTheme}
 					/>
-					<Route
-						path='/budgets/:budgetId'
-						element={<BudgetDetailPage budgets={budgets} />}
-					/>
-					<Route path='/*' element={<Navigate to='/' />} />
-				</Routes>
+					<Routes>
+						<Route path='/' element={<LandingPage user={user} />} />
+						<Route path='/profile' element={<Profile user={user} />} />
+						<Route
+							path='/budgets'
+							element={
+								<BudgetsPage
+									budgets={budgets}
+									setBudgets={setBudgets}
+									categories={categories}
+									setCategories={setCategories}
+								/>
+							}
+						/>
+						<Route
+							path='/budgets/new'
+							element={
+								<NewBudgetPage budgets={budgets} categories={categories} />
+							}
+						/>
+						<Route
+							path='/budgets/:budgetId'
+							element={<BudgetDetailPage budgets={budgets} />}
+						/>
+						<Route path='/*' element={<Navigate to='/' />} />
+					</Routes>
+				</>
 			) : (
 				<AuthPage user={user} setUser={setUser} />
 			)}

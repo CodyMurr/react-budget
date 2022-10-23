@@ -1,10 +1,9 @@
-import { useEffect, useRef, useState, useContext } from 'react';
-import ToggleContext from '../context/ToggleContext';
-import BudgetForm from '../components/BudgetForm';
+import { useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { FaPlus } from 'react-icons/fa';
 import * as budgetsAPI from '../utilities/budgets-api';
 import * as categoriesAPI from '../utilities/categories-api';
-import ModalButton from '../components/custom/ModalButton';
-import BudgetList from '../components/BudgetList';
+import Budget from '../components/Budget';
 
 export default function BudgetsPage({
 	budgets,
@@ -12,9 +11,6 @@ export default function BudgetsPage({
 	categories,
 	setCategories,
 }) {
-	const { toggleState } = useContext(ToggleContext);
-
-	const [showBudgetForm, setShowBudgetForm] = useState(false);
 	const [loading, setLoading] = useState(false);
 
 	const isMounted = useRef(true);
@@ -37,32 +33,27 @@ export default function BudgetsPage({
 		return () => (isMounted.current = false);
 	}, [setLoading, setCategories, setBudgets]);
 
-	function toggleForm() {
-		toggleState(setShowBudgetForm);
-	}
-
 	if (loading) return <h3>Loading...</h3>;
 
 	return (
-		<div className='w-full flex flex-col'>
+		<main className='w-full flex flex-col'>
 			<h2 className='w-full bg-primary text-primary-content text-lg font-bold'>
 				Budget Summary
 			</h2>
 			{budgets.length ? (
-				<BudgetList budgets={budgets} categories={categories} />
+				budgets.map((b, i) => (
+					<Budget budget={b} categories={categories} key={b._id} />
+				))
 			) : (
 				<em>No budgets yet</em>
 			)}
 
-			<ModalButton name='Budget' handleClick={toggleForm} />
-
-			<BudgetForm
-				budgets={budgets}
-				setBudgets={setBudgets}
-				categories={categories}
-				showBudgetForm={showBudgetForm}
-				toggleForm={toggleForm}
-			/>
-		</div>
+			<Link
+				to='/budgets/new'
+				className='modal-button flex w-44 justify-between items-center p-2 rounded text-xl text-primary cursor-pointer hover:text-primary-content hover:bg-primary'>
+				<FaPlus size={20} />
+				<p>New Budget</p>
+			</Link>
+		</main>
 	);
 }

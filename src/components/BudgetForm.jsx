@@ -1,18 +1,11 @@
 import { create } from '../utilities/budgets-api';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import FormInput from './custom/FormInput';
-import ExitButton from './custom/ExitButton';
 import RadioInput from './custom/RadioInput';
 import CategoryList from './CategoryList';
 
-export default function BudgetForm({
-	budgets,
-	categories,
-	setBudgets,
-	showBudgetForm,
-	toggleForm,
-}) {
-	// const {  handleChange } = useContext(FormContext);
+export default function BudgetForm({ budgets, categories, setBudgets }) {
 	const [formData, setFormData] = useState({
 		category: '',
 		frequency: '',
@@ -21,13 +14,13 @@ export default function BudgetForm({
 
 	const [error, setError] = useState('');
 
+	const navigate = useNavigate();
+
 	async function handleSubmit(e) {
 		e.preventDefault();
 		try {
 			const budget = await create(formData);
 			setBudgets([budget, ...budgets]);
-			toggleForm();
-			console.log(formData);
 		} catch {
 			setError('Something went wrong - please try again later');
 		}
@@ -40,26 +33,28 @@ export default function BudgetForm({
 		});
 	}
 
-	return (
-		<div
-			className={`modal ${
-				showBudgetForm && 'modal-open'
-			} flex flex-col justify-center items-center`}>
-			<form
-				className='modal-box relative flex flex-col w-1/2 max-w-6xl h-2/5 justify-evenly items-center'
-				onSubmit={handleSubmit}>
-				<ExitButton handleClick={toggleForm} />
+	function handleCancel() {
+		setFormData({
+			category: '',
+			frequency: '',
+			amount: '',
+		});
+		navigate('/budgets');
+	}
 
+	return (
+		<div className='w-3/4 h-full'>
+			<form
+				className='relative flex flex-col w-full h-1/2 justify-evenly items-center'
+				onSubmit={handleSubmit}>
 				<CategoryList
 					categories={categories}
 					formData={formData}
 					handleChange={handleChange}
 				/>
 
-				<fieldset className='w-full'>
-					<legend className='flex flex-col text-lg w-full my-3 font-bold'>
-						How often?
-					</legend>
+				<fieldset className='w-full h-1/4 flex flex-col justify-evenly my-3'>
+					<legend className='text-xl w-full font-bold'>How often?</legend>
 					<div className='flex w-full justify-between'>
 						<RadioInput
 							title='Weekly'
@@ -93,12 +88,13 @@ export default function BudgetForm({
 					<button
 						className='btn btn-accent rounded text-accent-content w-5/12 font-bold text-lg mr-5'
 						type='submit'>
-						Save Changes
+						Save
 					</button>
+
 					<button
-						className='btn btn-secondary rounded text-secondary-content w-5/12 text-center cursor-pointer'
-						onClick={toggleForm}>
-						cancel
+						className='btn btn-error rounded text-error-content w-5/12 font-bold text-lg'
+						onClick={handleCancel}>
+						Cancel
 					</button>
 				</span>
 			</form>

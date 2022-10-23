@@ -10,6 +10,7 @@ export default function BudgetDetailPage() {
 			{activeBudget.category}
 			{activeBudget.amount}
 			{activeBudget.frequency}
+			<p>${activeBudget.remainingAmount}</p>
 		</main>
 	);
 }

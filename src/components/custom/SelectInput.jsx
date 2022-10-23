@@ -9,12 +9,12 @@ export default function SelectInput({
 	styling,
 }) {
 	const options = optData.map((opt, i) => (
-		<option key={`${opt.name}-${i}`} value={opt.name}>
+		<option key={opt._id} value={opt.name}>
 			{opt.name}
 		</option>
 	));
 	return (
-		<label className='flex flex-col w-full my-3 font-bold'>
+		<label className='flex flex-col justify-evenly h-1/4 w-full my-3 text-xl font-bold'>
 			{title}:
 			<select
 				className={styling}
