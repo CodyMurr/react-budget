@@ -1,10 +1,10 @@
 import React from 'react';
 
-export default function RadioInput({ title, name, formData, handleChange }) {
+export default function RadioInput({ title, name, handleChange }) {
 	return (
 		<label
 			htmlFor={title.toLowerCase()}
-			className='w-1/4 flex justify-around items-center font-bold'>
+			className='w-1/4 flex justify-evenly items-center font-bold'>
 			<input
 				className='radio radio-primary'
 				type='radio'

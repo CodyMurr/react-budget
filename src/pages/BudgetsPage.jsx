@@ -1,37 +1,27 @@
-import { useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { FaPlus } from 'react-icons/fa';
-import * as budgetsAPI from '../utilities/budgets-api';
-import * as categoriesAPI from '../utilities/categories-api';
+import { useState, useContext, useEffect, useRef } from 'react';
 import Budget from '../components/Budget';
+import ModalButton from '../components/custom/ModalButton';
+import BudgetForm from '../components/BudgetForm';
+import BudgetContext from '../context/Budgets/BudgetContext';
 
-export default function BudgetsPage({
-	budgets,
-	setBudgets,
-	categories,
-	setCategories,
-}) {
-	const [loading, setLoading] = useState(false);
+export default function BudgetsPage() {
+	const { budgets, loading, getBudgets, getCats } = useContext(BudgetContext);
 
 	const isMounted = useRef(true);
 
+	const [showBudgetForm, setShowBudgetForm] = useState(false);
+
 	useEffect(() => {
-		async function getBudgets() {
-			const res = await budgetsAPI.getAll();
-			setBudgets(res);
-		}
-		async function getCategories() {
-			const res = await categoriesAPI.getAll();
-			setCategories(res);
-		}
 		if (isMounted.current) {
-			setLoading(true);
 			getBudgets();
-			getCategories();
-			setLoading(false);
+			getCats();
 		}
 		return () => (isMounted.current = false);
-	}, [setLoading, setCategories, setBudgets]);
+	});
+
+	function toggleForm() {
+		setShowBudgetForm(!showBudgetForm);
+	}
 
 	if (loading) return <h3>Loading...</h3>;
 
@@ -41,19 +31,18 @@ export default function BudgetsPage({
 				Budget Summary
 			</h2>
 			{budgets.length ? (
-				budgets.map((b, i) => (
-					<Budget budget={b} categories={categories} key={b._id} />
-				))
+				budgets.map((b) => <Budget budget={b} key={b._id} />)
 			) : (
 				<em>No budgets yet</em>
 			)}
 
-			<Link
-				to='/budgets/new'
-				className='modal-button flex w-44 justify-between items-center p-2 rounded text-xl text-primary cursor-pointer hover:text-primary-content hover:bg-primary'>
-				<FaPlus size={20} />
-				<p>New Budget</p>
-			</Link>
+			<ModalButton name='Budget' handleClick={toggleForm} />
+
+			<BudgetForm
+				budgets={budgets}
+				showBudgetForm={showBudgetForm}
+				toggleForm={toggleForm}
+			/>
 		</main>
 	);
 }

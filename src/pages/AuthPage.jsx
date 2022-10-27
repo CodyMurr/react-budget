@@ -1,25 +1,22 @@
-import { useState, useContext } from 'react';
-import ToggleContext from '../context/ToggleContext';
+import { useState } from 'react';
 import SignupForm from '../components/SignupForm';
 import LoginForm from '../components/LoginForm';
 
 export default function AuthPage({ setUser }) {
-	const { toggleState } = useContext(ToggleContext);
-
 	const [showLogin, setShowLogin] = useState(true);
 	const [showPassword, setShowPassword] = useState(false);
 
 	function toggleLogin() {
-		toggleState(setShowLogin);
+		setShowLogin(!showLogin);
 	}
 	function togglePassword() {
-		toggleState(setShowPassword);
+		setShowPassword(!showPassword);
 	}
 
 	return (
-		<main className='w-11/12 h-screen'>
-			<div className='w-full flex flex-col items-center justify-center h-full'>
-				<h2 className='text-4xl text-primary mb-5 font-bold'>
+		<main className='w-full h-screen'>
+			<div className='w-full h-full flex flex-col items-center justify-center'>
+				<h2 className='text-4xl text-primary font-bold'>
 					{showLogin ? 'Welcome Back!' : 'Register Account'}
 				</h2>
 

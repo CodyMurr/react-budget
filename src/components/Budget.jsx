@@ -1,46 +1,36 @@
-import { useState, useContext } from 'react';
-import ToggleContext from '../context/ToggleContext';
+import { useState } from 'react';
 import BudgetDetail from './BudgetDetail';
-import BudgetItem from './BudgetItem';
-// import EditBtn from './custom/EditBtn';
 
-export default function Budget({ budget, categories }) {
-	const { toggleState } = useContext(ToggleContext);
-
+export default function Budget({ budget }) {
 	const [showBudgetDetail, setShowBudgetDetail] = useState(false);
 
-	function toggleBudgetDetail() {
-		toggleState(setShowBudgetDetail);
+	function handleActiveBudget() {
+		setShowBudgetDetail(true);
 	}
+
+	function deactivateBudget() {
+		setShowBudgetDetail(false);
+	}
+
 	return (
 		<>
-			<label
-				className='flex flex-col relative w-2/5 m-2 cursor-pointer'
-				onClick={toggleBudgetDetail}>
-				<h3 className='w-full rounded-t bg-secondary text-neutral-content pl-2 flex justify-center font-bold text-lg'>
+			<section className='flex flex-col relative w-2/5 m-2'>
+				<h3
+					className='w-full rounded-t bg-secondary text-neutral-content pl-2 flex justify-center font-bold text-lg cursor-pointer'
+					onClick={handleActiveBudget}>
 					{budget.category}
 				</h3>
-				<section className='flex w-full justify-center pl-2 bg-base-300 rounded-b'>
-					{/* <BudgetItem label={'Expenses'} item={budget.expenses.length} /> */}
-
-					<BudgetItem label={'Amount'} item={`$${budget.amount}`} />
-
-					{/* <EditBtn toggleEditMode={toggleEditMode} /> */}
-				</section>
-				<section></section>
-			</label>
-
-			<div
-				className={`modal ${
-					showBudgetDetail && 'modal-open'
-				} w-full flex flex-col items-center`}>
 				<BudgetDetail
 					budget={budget}
-					categories={categories}
-					toggleDetail={toggleBudgetDetail}
 					showBudgetDetail={showBudgetDetail}
+					deactivateBudget={deactivateBudget}
 				/>
-			</div>
+				<section className='flex justify-between w-full'>
+					<span className='w-1/3 flex justify-evenly items-center text-lg font-bold'>
+						${budget.totalSpent ? budget.totalSpent : '0'} / ${budget.amount}
+					</span>
+				</section>
+			</section>
 		</>
 	);
 }

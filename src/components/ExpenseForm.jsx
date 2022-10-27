@@ -1,7 +1,9 @@
 import { useState } from 'react';
+import ActionBtns from './custom/ActionBtns';
+import FormHeader from './custom/FormHeader';
 import FormInput from './custom/FormInput';
 
-export default function ExpenseForm({ budget, showExpForm }) {
+export default function ExpenseForm({ showExpForm, toggleExpForm }) {
 	const [formData, setFormData] = useState({
 		category: '',
 		amount: '',
@@ -21,35 +23,41 @@ export default function ExpenseForm({ budget, showExpForm }) {
 			className={`modal ${
 				showExpForm && 'modal-open'
 			} flex flex-col justify-center items-center`}>
-			<form className='modal-box relative flex flex-col w-1/2 max-w-6xl h-2/5 justify-evenly items-center'>
-				<section className='w-full'>
+			<div className='modal-box rounded-lg relative w-full max-w-6xl h-3/5'>
+				<form className='w-full h-full flex flex-col justify-evenly items-center'>
+					<FormHeader name='Expense' />
+					<label className='flex flex-col justify-center w-full text-xl my-3 font-bold h-1/4'>
+						Category:
+						<select
+							className='input input-primary rounded'
+							name='category'
+							onChange={handleChange}></select>
+					</label>
 					<FormInput
-						// labelStyle
-						// inputStyle
 						title='Amount'
 						type='number'
 						formData={formData}
 						handleChange={handleChange}
 					/>
 					<FormInput
-						// labelStyle
-						// inputStyle
 						title='Payee'
 						formData={formData}
 						handleChange={handleChange}
 					/>
-					<label>
-						This Expense is Paid
+
+					<label className='w-full text-lg font-bold'>
 						<input
+							className='checkbox mr-3 checkbox-primary'
 							type='checkbox'
 							name='isPaid'
 							onChange={handleChange}
-							checked={formData.isPaid}
+							checked={!!formData.isPaid}
 						/>
+						This Expense is Paid
 					</label>
-				</section>
-				<button type='submit'>Save</button>
-			</form>
+					<ActionBtns handleCancel={toggleExpForm} />
+				</form>
+			</div>
 		</div>
 	);
 }

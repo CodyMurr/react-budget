@@ -1,13 +1,15 @@
-import SelectInput from './custom/SelectInput';
+import React from 'react';
+import Category from './Category';
 
-export default function CategoryList({ categories, formData, handleChange }) {
+export default function CategoryList({ categories, handleChange }) {
+	const cats = categories.map((c) => <Category name={c.name} />);
 	return (
-		<SelectInput
-			title='Category'
-			formData={formData}
-			optData={categories}
-			defaultMsg='Select A Category...'
-			handleChange={handleChange}
-		/>
+		<select
+			className='input input-primary rounded-md w-full'
+			name='category'
+			onChange={handleChange}>
+			<option value={null}>Choose A Category</option>
+			{cats}
+		</select>
 	);
 }

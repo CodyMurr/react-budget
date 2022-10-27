@@ -1,11 +1,14 @@
-import { create } from '../utilities/budgets-api';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useContext } from 'react';
 import FormInput from './custom/FormInput';
 import RadioInput from './custom/RadioInput';
+import FormHeader from './custom/FormHeader';
+import ActionBtns from './custom/ActionBtns';
+import BudgetContext from '../context/Budgets/BudgetContext';
 import CategoryList from './CategoryList';
 
-export default function BudgetForm({ budgets, categories, setBudgets }) {
+export default function BudgetForm({ showBudgetForm, toggleForm }) {
+	const { categories, createBudget } = useContext(BudgetContext);
+
 	const [formData, setFormData] = useState({
 		category: '',
 		frequency: '',
@@ -14,13 +17,11 @@ export default function BudgetForm({ budgets, categories, setBudgets }) {
 
 	const [error, setError] = useState('');
 
-	const navigate = useNavigate();
-
 	async function handleSubmit(e) {
 		e.preventDefault();
 		try {
-			const budget = await create(formData);
-			setBudgets([budget, ...budgets]);
+			await createBudget(formData);
+			toggleForm();
 		} catch {
 			setError('Something went wrong - please try again later');
 		}
@@ -33,29 +34,31 @@ export default function BudgetForm({ budgets, categories, setBudgets }) {
 		});
 	}
 
-	function handleCancel() {
-		setFormData({
-			category: '',
-			frequency: '',
-			amount: '',
-		});
-		navigate('/budgets');
-	}
-
 	return (
-		<div className='w-3/4 h-full'>
+		<div
+			className={`modal ${
+				showBudgetForm && 'modal-open'
+			} flex flex-col justify-center items-center`}>
 			<form
-				className='relative flex flex-col w-full h-1/2 justify-evenly items-center'
+				className='modal-box relative flex flex-col w-1/2 max-w-6xl h-3/5 justify-evenly items-center bg-base-300 shadow-2xl rounded-lg p-5'
 				onSubmit={handleSubmit}>
-				<CategoryList
-					categories={categories}
+				<FormHeader name='Budget' />
+
+				<label className='flex flex-col w-full h-1/4 justify-center font-bold text-xl'>
+					Category:
+					<CategoryList categories={categories} handleChange={handleChange} />
+				</label>
+
+				<FormInput
+					title='Amount'
+					type='number'
 					formData={formData}
 					handleChange={handleChange}
 				/>
 
-				<fieldset className='w-full h-1/4 flex flex-col justify-evenly my-3'>
-					<legend className='text-xl w-full font-bold'>How often?</legend>
-					<div className='flex w-full justify-between'>
+				<fieldset className='w-full h-1/4 flex flex-col justify-center my-5'>
+					<label className='w-full text-xl font-bold'>How often?</label>
+					<div className='flex w-full h-1/2 justify-between items-center'>
 						<RadioInput
 							title='Weekly'
 							name='frequency'
@@ -77,26 +80,7 @@ export default function BudgetForm({ budgets, categories, setBudgets }) {
 					</div>
 				</fieldset>
 
-				<FormInput
-					title='Amount'
-					type='number'
-					formData={formData}
-					handleChange={handleChange}
-				/>
-
-				<span className='flex justify-between w-full'>
-					<button
-						className='btn btn-accent rounded text-accent-content w-5/12 font-bold text-lg mr-5'
-						type='submit'>
-						Save
-					</button>
-
-					<button
-						className='btn btn-error rounded text-error-content w-5/12 font-bold text-lg'
-						onClick={handleCancel}>
-						Cancel
-					</button>
-				</span>
+				<ActionBtns handleCancel={toggleForm} />
 			</form>
 			<p className='text-lg text-error'>{error}</p>
 		</div>

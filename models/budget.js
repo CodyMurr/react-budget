@@ -15,16 +15,15 @@ const budgetSchema = new Schema(
 	},
 );
 
-budgetSchema.virtual('remainingAmt').get(function () {
-	const initial = this.amount;
+budgetSchema.virtual('totalSpent').get(function () {
 	const paidExp = this.expenses
 		.filter((exp) => exp.isPaid)
 		.reduce((total, val) => (total += val), 0);
-	return initial - paidExp || initial;
+	return paidExp || '0';
 });
 
-budgetSchema.methods.addExpense = async function (expenseId) {
-	const newExpense = await mongoose.model('Expense').findById(expenseId);
+budgetSchema.methods.addExpense = async function (expenseData) {
+	const newExpense = await mongoose.model('Expense').create(expenseData);
 	this.expenses.push({ newExpense });
 	return this.save();
 };

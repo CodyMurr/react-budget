@@ -7,6 +7,7 @@ module.exports = {
 
 async function getAll(req, res) {
 	const budgets = await Budget.find({ user: req.user });
+
 	res.json(budgets);
 }
 

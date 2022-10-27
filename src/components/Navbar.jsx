@@ -8,9 +8,8 @@ import {
 } from 'react-icons/bs';
 import * as userService from '../utilities/users-service';
 import NavItem from './custom/NavItem';
-import ThemeToggle from './custom/ThemeToggle';
 
-export default function NavBar({ user, setUser, theme, setTheme }) {
+export default function NavBar({ setUser }) {
 	const navigate = useNavigate();
 
 	function handleLogout() {
@@ -46,18 +45,12 @@ export default function NavBar({ user, setUser, theme, setTheme }) {
 				</ul>
 
 				<section className='w-full h-1/2 flex flex-col justify-end items-center'>
-					{user && (
-						<Link
-							className='text-secondary-content border-b-2 border-b-secondary-content border-t-2 border-t-secondary-content font-bold w-full h-1/5 flex items-center justify-center'
-							to=''
-							onClick={handleLogout}>
-							Log Out
-						</Link>
-					)}
-					<span className='text-secondary-content border-b-2 border-b-secondary-content font-bold w-full h-1/5 flex flex-col items-center justify-evenly'>
-						<ThemeToggle theme={theme} setTheme={setTheme} />
-						<p>Theme</p>
-					</span>
+					<Link
+						className='text-secondary-content border-b-2 border-b-secondary-content border-t-2 border-t-secondary-content font-bold w-full h-1/5 flex items-center justify-center'
+						to=''
+						onClick={handleLogout}>
+						Log Out
+					</Link>
 				</section>
 			</nav>
 		</div>
