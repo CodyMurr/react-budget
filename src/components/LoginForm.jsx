@@ -1,5 +1,4 @@
-import { useState, useContext } from 'react';
-import UserContext from '../context/User/UserContext';
+import { useState } from 'react';
 import * as usersService from '../utilities/users-service';
 import FormInput from './custom/FormInput';
 import PasswordToggle from './custom/PasswordToggle';
@@ -10,7 +9,6 @@ export default function LoginForm({
 	toggleLogin,
 	togglePassword,
 }) {
-	const { userLogin } = useContext(UserContext);
 	const [credentials, setCredentials] = useState({
 		email: '',
 		password: '',
@@ -29,7 +27,7 @@ export default function LoginForm({
 			// The promise returned by the signUp service method
 			// will resolve to the user object included in the
 			// payload of the JSON Web Token (JWT)
-			const user = await userLogin(credentials);
+			const user = await usersService.login(credentials);
 			setUser(user);
 		} catch {
 			setError('Log In Failed - Try Again');

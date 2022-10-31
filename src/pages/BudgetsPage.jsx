@@ -4,6 +4,14 @@ import ModalButton from '../components/custom/ModalButton';
 import BudgetForm from '../components/BudgetForm';
 import BudgetContext from '../context/Budgets/BudgetContext';
 
+const FREQUENCIES = {
+	Once: 'once',
+	Weekly: 'week',
+	Monthly: 'month',
+	'Bi-Weekly': '2 weeks',
+	Annualy: 'year',
+};
+
 export default function BudgetsPage() {
 	const { budgets, loading, getBudgets, getCats } = useContext(BudgetContext);
 
@@ -31,7 +39,9 @@ export default function BudgetsPage() {
 				Budget Summary
 			</h2>
 			{budgets.length ? (
-				budgets.map((b) => <Budget budget={b} key={b._id} />)
+				budgets.map((b) => (
+					<Budget budget={b} key={b._id} FREQUENCIES={FREQUENCIES} />
+				))
 			) : (
 				<em>No budgets yet</em>
 			)}
@@ -42,6 +52,7 @@ export default function BudgetsPage() {
 				budgets={budgets}
 				showBudgetForm={showBudgetForm}
 				toggleForm={toggleForm}
+				FREQUENCIES={FREQUENCIES}
 			/>
 		</main>
 	);

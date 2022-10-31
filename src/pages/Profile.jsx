@@ -1,9 +1,7 @@
-import { useState, useContext } from 'react';
+import { useState } from 'react';
 import { FaPen } from 'react-icons/fa';
-import UserContext from '../context/User/UserContext';
 
-export default function Profile() {
-	const { user } = useContext(UserContext);
+export default function Profile({ user }) {
 	const [updateInfo, setUpdateInfo] = useState(false);
 
 	function toggleMode() {

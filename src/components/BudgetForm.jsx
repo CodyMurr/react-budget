@@ -6,13 +6,17 @@ import ActionBtns from './custom/ActionBtns';
 import BudgetContext from '../context/Budgets/BudgetContext';
 import CategoryList from './CategoryList';
 
-export default function BudgetForm({ showBudgetForm, toggleForm }) {
+export default function BudgetForm({
+	showBudgetForm,
+	toggleForm,
+	FREQUENCIES,
+}) {
 	const { categories, createBudget } = useContext(BudgetContext);
 
 	const [formData, setFormData] = useState({
 		category: '',
-		frequency: '',
 		amount: '',
+		frequency: '',
 	});
 
 	const [error, setError] = useState('');
@@ -34,6 +38,8 @@ export default function BudgetForm({ showBudgetForm, toggleForm }) {
 		});
 	}
 
+	const freqNames = Object.keys(FREQUENCIES);
+
 	return (
 		<div
 			className={`modal ${
@@ -43,7 +49,6 @@ export default function BudgetForm({ showBudgetForm, toggleForm }) {
 				className='modal-box relative flex flex-col w-1/2 max-w-6xl h-3/5 justify-evenly items-center bg-base-300 shadow-2xl rounded-lg p-5'
 				onSubmit={handleSubmit}>
 				<FormHeader name='Budget' />
-
 				<label className='flex flex-col w-full h-1/4 justify-center font-bold text-xl'>
 					Category:
 					<CategoryList categories={categories} handleChange={handleChange} />
@@ -56,10 +61,19 @@ export default function BudgetForm({ showBudgetForm, toggleForm }) {
 					handleChange={handleChange}
 				/>
 
-				<fieldset className='w-full h-1/4 flex flex-col justify-center my-5'>
+				<fieldset className='w-full flex flex-col my-5'>
 					<label className='w-full text-xl font-bold'>How often?</label>
-					<div className='flex w-full h-1/2 justify-between items-center'>
-						<RadioInput
+					<div className='flex flex-col w-full justify-center items-center'>
+						{freqNames.map((f) => (
+							<RadioInput
+								title={f}
+								name='frequency'
+								formData={formData}
+								handleChange={handleChange}
+								key={f}
+							/>
+						))}
+						{/* <RadioInput
 							title='Weekly'
 							name='frequency'
 							formData={formData}
@@ -76,10 +90,9 @@ export default function BudgetForm({ showBudgetForm, toggleForm }) {
 							name='frequency'
 							formData={formData}
 							handleChange={handleChange}
-						/>
+						/> */}
 					</div>
 				</fieldset>
-
 				<ActionBtns handleCancel={toggleForm} />
 			</form>
 			<p className='text-lg text-error'>{error}</p>

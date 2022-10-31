@@ -2,7 +2,7 @@ import React from 'react';
 import Category from './Category';
 
 export default function CategoryList({ categories, handleChange }) {
-	const cats = categories.map((c) => <Category name={c.name} />);
+	const cats = categories.map((c) => <Category name={c.name} key={c._id} />);
 	return (
 		<select
 			className='input input-primary rounded-md w-full'

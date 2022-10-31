@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import BudgetDetail from './BudgetDetail';
 
-export default function Budget({ budget }) {
+export default function Budget({ budget, FREQUENCIES }) {
 	const [showBudgetDetail, setShowBudgetDetail] = useState(false);
 
 	function handleActiveBudget() {
@@ -26,8 +26,8 @@ export default function Budget({ budget }) {
 					deactivateBudget={deactivateBudget}
 				/>
 				<section className='flex justify-between w-full'>
-					<span className='w-1/3 flex justify-evenly items-center text-lg font-bold'>
-						${budget.totalSpent ? budget.totalSpent : '0'} / ${budget.amount}
+					<span className='w-1/3 flex justify-between items-center text-lg font-bold'>
+						${budget.amount}&nbsp;/&nbsp;{FREQUENCIES[budget.frequency]}
 					</span>
 				</section>
 			</section>

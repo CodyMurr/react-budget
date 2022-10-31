@@ -6,8 +6,8 @@ const budgetSchema = new Schema(
 	{
 		user: { type: Schema.Types.ObjectId, ref: 'User' },
 		category: { type: Schema.Types.String, ref: 'Category' },
+		amount: { type: String, required: true },
 		frequency: { type: String },
-		amount: { type: Number },
 		expenses: [expenseSchema],
 	},
 	{
@@ -15,12 +15,15 @@ const budgetSchema = new Schema(
 	},
 );
 
-budgetSchema.virtual('totalSpent').get(function () {
-	const paidExp = this.expenses
-		.filter((exp) => exp.isPaid)
-		.reduce((total, val) => (total += val), 0);
-	return paidExp || '0';
-});
+// budgetSchema.virtual('amount').get(function () {
+// 	let totalAmt;
+// 	if (expArr.length) {
+// 		totalAmt = this.expenses.reduce((total, val) => total + val.amount, 0);
+// 	} else {
+// 		totalAmt = 0;
+// 	}
+// 	return totalAmt;
+// });
 
 budgetSchema.methods.addExpense = async function (expenseData) {
 	const newExpense = await mongoose.model('Expense').create(expenseData);

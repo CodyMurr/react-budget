@@ -4,27 +4,6 @@ const bcrypt = require('bcrypt');
 
 const SALT_ROUNDS = 6;
 
-const ratingSchema = new Schema(
-	{
-		stars: { type: Number },
-	},
-	{
-		timestamps: true,
-		toJSON: true,
-	},
-);
-
-const dataSchema = new Schema(
-	{
-		isLoggedIn: { type: Boolean, default: false },
-		ratings: [ratingSchema],
-	},
-	{
-		timestamps: true,
-		toJSON: { virtuals: true },
-	},
-);
-
 const userSchema = new Schema(
 	{
 		name: { type: String, required: true },
@@ -41,7 +20,6 @@ const userSchema = new Schema(
 			minLength: 3,
 			required: true,
 		},
-		data: dataSchema,
 	},
 	{
 		timestamps: true,

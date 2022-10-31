@@ -41,6 +41,7 @@ export default function BudgetDetail({
 
 				{showExpForm && (
 					<ExpenseForm
+						budget={budget}
 						showExpForm={showExpForm}
 						toggleExpForm={toggleExpForm}
 					/>
