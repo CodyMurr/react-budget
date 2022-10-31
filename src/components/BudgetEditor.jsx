@@ -1,28 +1,21 @@
-import { useState, useContext } from 'react';
+import { useState } from 'react';
+import ActionBtns from './custom/ActionBtns';
+import RadioInput from './custom/RadioInput';
+import CategoryList from './CategoryList';
+import FormHeader from './custom/FormHeader';
 import FormInput from './custom/FormInput';
 import SelectInput from './custom/SelectInput';
-import FormHeader from './custom/FormHeader';
-import ActionBtns from './custom/ActionBtns';
-import BudgetContext from '../context/Budgets/BudgetContext';
-import CategoryList from './CategoryList';
 
-export default function BudgetForm({ toggleState, handleToggle }) {
-	const { createBudget } = useContext(BudgetContext);
-
-	const [formData, setFormData] = useState({
-		category: '',
-		amount: '',
-	});
-
-	const [error, setError] = useState('');
-
+export default function BudgetEditor({ budget, toggleState, handleToggle }) {
+	const [formData, setFormData] = useState({ ...budget });
 	async function handleSubmit(e) {
 		e.preventDefault();
 		try {
-			await createBudget(formData);
+			// await createBudget(formData);
 			handleToggle();
-		} catch {
-			setError('Something went wrong - please try again later');
+		} catch (e) {
+			// setError('Something went wrong - please try again later');
+			console.log(e);
 		}
 	}
 
@@ -32,7 +25,6 @@ export default function BudgetForm({ toggleState, handleToggle }) {
 			[e.target.name]: e.target.value,
 		});
 	}
-
 	return (
 		<div
 			className={`modal ${
@@ -41,22 +33,22 @@ export default function BudgetForm({ toggleState, handleToggle }) {
 			<form
 				className='modal-box relative flex flex-col w-1/2 max-w-6xl h-3/5 justify-evenly items-center bg-base-300 shadow-2xl rounded-lg p-5'
 				onSubmit={handleSubmit}>
-				<FormHeader name='New Budget' />
+				<FormHeader name='Edit Budget' />
 				<label className='flex flex-col w-full h-1/4 justify-center font-bold text-xl'>
 					Category:
-					<CategoryList value={null} handleChange={handleChange} />
+					<CategoryList value={formData.category} handleChange={handleChange} />
 				</label>
 
 				<FormInput
 					title='Amount'
 					type='number'
-					formData={formData}
+					formData={budget}
 					handleChange={handleChange}
 				/>
 
 				<ActionBtns handleCancel={handleToggle} />
 			</form>
-			<p className='text-lg text-error'>{error}</p>
+			{/* <p className='text-lg text-error'>{error}</p> */}
 		</div>
 	);
 }

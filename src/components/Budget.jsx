@@ -1,8 +1,16 @@
 import { useState } from 'react';
 import BudgetDetail from './BudgetDetail';
+import BudgetEditor from './BudgetEditor';
+import BudgetItem from './BudgetItem';
+import EditBtn from './custom/EditBtn';
 
-export default function Budget({ budget, FREQUENCIES }) {
+export default function Budget({ budget, FREQUENCIES, freqNames }) {
 	const [showBudgetDetail, setShowBudgetDetail] = useState(false);
+	const [editMode, setEditMode] = useState(false);
+
+	function toggleEditMode() {
+		setEditMode(!editMode);
+	}
 
 	function handleActiveBudget() {
 		setShowBudgetDetail(true);
@@ -26,10 +34,20 @@ export default function Budget({ budget, FREQUENCIES }) {
 					deactivateBudget={deactivateBudget}
 				/>
 				<section className='flex justify-between w-full'>
-					<span className='w-1/3 flex justify-between items-center text-lg font-bold'>
-						${budget.amount}&nbsp;/&nbsp;{FREQUENCIES[budget.frequency]}
-					</span>
+					<BudgetItem
+						amt={budget.amount}
+						frequency={FREQUENCIES[budget.frequency]}
+					/>
+					<EditBtn toggleEditMode={toggleEditMode} />
 				</section>
+				{editMode && (
+					<BudgetEditor
+						budget={budget}
+						toggleState={editMode}
+						handleToggle={toggleEditMode}
+						freqNames={freqNames}
+					/>
+				)}
 			</section>
 		</>
 	);

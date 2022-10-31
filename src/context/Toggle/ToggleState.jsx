@@ -1,8 +1,6 @@
-import { createContext } from 'react';
+import ToggleContext from './ToggleContext';
 
-const ToggleContext = createContext();
-
-export function ToggleProvider({ children }) {
+export default function ToggleState({ children }) {
 	function toggleState(callback) {
 		callback((prev) => !prev);
 	}
@@ -13,5 +11,3 @@ export function ToggleProvider({ children }) {
 		</ToggleContext.Provider>
 	);
 }
-
-export default ToggleContext;

@@ -11,6 +11,7 @@ export default function ExpenseForm({ budget, showExpForm, toggleExpForm }) {
 	const [formData, setFormData] = useState({
 		category: '',
 		amount: '',
+		frequency: '',
 		payee: '',
 		isPaid: false,
 	});

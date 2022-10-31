@@ -31,6 +31,8 @@ export default function BudgetsPage() {
 		setShowBudgetForm(!showBudgetForm);
 	}
 
+	const freqNames = Object.keys(FREQUENCIES);
+
 	if (loading) return <h3>Loading...</h3>;
 
 	return (
@@ -40,7 +42,12 @@ export default function BudgetsPage() {
 			</h2>
 			{budgets.length ? (
 				budgets.map((b) => (
-					<Budget budget={b} key={b._id} FREQUENCIES={FREQUENCIES} />
+					<Budget
+						budget={b}
+						key={b._id}
+						FREQUENCIES={FREQUENCIES}
+						freqNames={freqNames}
+					/>
 				))
 			) : (
 				<em>No budgets yet</em>
@@ -49,10 +56,10 @@ export default function BudgetsPage() {
 			<ModalButton name='Budget' handleClick={toggleForm} />
 
 			<BudgetForm
-				budgets={budgets}
-				showBudgetForm={showBudgetForm}
-				toggleForm={toggleForm}
+				toggleState={showBudgetForm}
+				handleToggle={toggleForm}
 				FREQUENCIES={FREQUENCIES}
+				freqNames={freqNames}
 			/>
 		</main>
 	);

@@ -8,9 +8,9 @@ export default function SelectInput({
 	handleChange,
 	styling,
 }) {
-	const options = optData.map((opt, i) => (
-		<option key={opt._id} value={opt._id}>
-			{opt.name}
+	const options = optData.map((opt) => (
+		<option key={opt} value={opt}>
+			{opt}
 		</option>
 	));
 	return (
