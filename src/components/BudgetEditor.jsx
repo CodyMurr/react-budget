@@ -1,12 +1,15 @@
 import { useState } from 'react';
 import ActionBtns from './custom/ActionBtns';
-import RadioInput from './custom/RadioInput';
 import CategoryList from './CategoryList';
 import FormHeader from './custom/FormHeader';
 import FormInput from './custom/FormInput';
-import SelectInput from './custom/SelectInput';
 
-export default function BudgetEditor({ budget, toggleState, handleToggle }) {
+export default function BudgetEditor({
+	budget,
+	categories,
+	toggleState,
+	handleToggle,
+}) {
 	const [formData, setFormData] = useState({ ...budget });
 	async function handleSubmit(e) {
 		e.preventDefault();
@@ -36,7 +39,11 @@ export default function BudgetEditor({ budget, toggleState, handleToggle }) {
 				<FormHeader name='Edit Budget' />
 				<label className='flex flex-col w-full h-1/4 justify-center font-bold text-xl'>
 					Category:
-					<CategoryList value={formData.category} handleChange={handleChange} />
+					<CategoryList
+						value={formData.category}
+						categories={categories}
+						handleChange={handleChange}
+					/>
 				</label>
 
 				<FormInput

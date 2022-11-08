@@ -1,13 +1,12 @@
 import { useState, useContext } from 'react';
 import FormInput from './custom/FormInput';
-import SelectInput from './custom/SelectInput';
 import FormHeader from './custom/FormHeader';
 import ActionBtns from './custom/ActionBtns';
 import BudgetContext from '../context/Budgets/BudgetContext';
 import CategoryList from './CategoryList';
 
 export default function BudgetForm({ toggleState, handleToggle }) {
-	const { createBudget } = useContext(BudgetContext);
+	const { categories, createBudget } = useContext(BudgetContext);
 
 	const [formData, setFormData] = useState({
 		category: '',
@@ -44,7 +43,7 @@ export default function BudgetForm({ toggleState, handleToggle }) {
 				<FormHeader name='New Budget' />
 				<label className='flex flex-col w-full h-1/4 justify-center font-bold text-xl'>
 					Category:
-					<CategoryList value={null} handleChange={handleChange} />
+					<CategoryList categories={categories} handleChange={handleChange} />
 				</label>
 
 				<FormInput

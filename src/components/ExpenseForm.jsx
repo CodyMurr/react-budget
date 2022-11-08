@@ -1,17 +1,18 @@
-import { useState, useContext } from 'react';
-import BudgetContext from '../context/Budgets/BudgetContext';
+import { useState } from 'react';
 import ActionBtns from './custom/ActionBtns';
 import FormHeader from './custom/FormHeader';
 import FormInput from './custom/FormInput';
 import CategoryList from './CategoryList';
 
-export default function ExpenseForm({ budget, showExpForm, toggleExpForm }) {
-	const { categories } = useContext(BudgetContext);
-
+export default function ExpenseForm({
+	budget,
+	categories,
+	showExpForm,
+	toggleExpForm,
+}) {
 	const [formData, setFormData] = useState({
 		category: '',
 		amount: '',
-		frequency: '',
 		payee: '',
 		isPaid: false,
 	});
@@ -32,38 +33,40 @@ export default function ExpenseForm({ budget, showExpForm, toggleExpForm }) {
 			className={`modal ${
 				showExpForm && 'modal-open'
 			} flex flex-col justify-center items-center`}>
-			<div className='modal-box rounded-lg relative w-full max-w-6xl h-full'>
-				<form className='w-full h-full flex flex-col justify-evenly items-center'>
-					<FormHeader name='Expense' />
-					<label className='flex flex-col justify-center w-full text-xl my-3 font-bold h-1/4'>
-						Category:
-						<CategoryList categories={subcats} handleChange={handleChange} />
-					</label>
-					<FormInput
-						title='Amount'
-						type='number'
-						formData={formData}
-						handleChange={handleChange}
-					/>
-					<FormInput
-						title='Payee'
-						formData={formData}
-						handleChange={handleChange}
-					/>
+			<form className='modal-box relative flex flex-col w-1/2 max-w-6xl h-3/5 justify-evenly items-center bg-base-300 shadow-2xl rounded-lg p-5'>
+				<FormHeader name={`New Expense for ${budget.category}`} />
 
-					<label className='w-full text-lg font-bold'>
-						<input
-							className='checkbox mr-3 checkbox-primary'
-							type='checkbox'
-							name='isPaid'
-							onChange={handleChange}
-							checked={!!formData.isPaid}
-						/>
-						This Expense is Paid
-					</label>
-					<ActionBtns handleCancel={toggleExpForm} />
-				</form>
-			</div>
+				<label className='flex flex-col justify-center w-full text-xl my-3 font-bold h-1/4'>
+					Category:
+					<CategoryList categories={subcats} handleChange={handleChange} />
+				</label>
+
+				<FormInput
+					title='Amount'
+					type='number'
+					formData={formData}
+					handleChange={handleChange}
+				/>
+
+				<FormInput
+					title='Payee'
+					formData={formData}
+					handleChange={handleChange}
+				/>
+
+				<label className='w-full text-lg font-bold'>
+					<input
+						className='checkbox mr-3 checkbox-primary'
+						type='checkbox'
+						name='isPaid'
+						onChange={handleChange}
+						checked={!!formData.isPaid}
+					/>
+					This Expense is Paid
+				</label>
+
+				<ActionBtns handleCancel={toggleExpForm} />
+			</form>
 		</div>
 	);
 }

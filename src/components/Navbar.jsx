@@ -19,7 +19,7 @@ export default function NavBar({ setUser }) {
 	}
 
 	return (
-		<div className='mt-0 flex w-1/12 h-screen bg-secondary'>
+		<div className='mt-0 flex w-1/12 h-screen bg-primary'>
 			<nav className='flex flex-col w-full justify-evenly'>
 				<ul className='w-full h-1/2 flex flex-col justify-between items-center pt-3'>
 					<NavItem

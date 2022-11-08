@@ -37,9 +37,6 @@ export default function BudgetsPage() {
 
 	return (
 		<main className='w-full flex flex-col'>
-			<h2 className='w-full bg-primary text-primary-content text-lg font-bold'>
-				Budget Summary
-			</h2>
 			{budgets.length ? (
 				budgets.map((b) => (
 					<Budget

@@ -9,7 +9,3 @@ export function getAll() {
 export function create(budgetData) {
 	return sendRequest(BASE_URL, 'POST', budgetData);
 }
-
-// export function addExpense(expenseData) {
-// 	return sendRequest(BASE_URL, 'PUT', expenseData)
-// }
