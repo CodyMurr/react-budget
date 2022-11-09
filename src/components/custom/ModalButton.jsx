@@ -4,11 +4,11 @@ import { FaPlus } from 'react-icons/fa';
 export default function ModalButton({ name, handleClick }) {
 	return (
 		<label
-			className='modal-button flex w-1/3 justify-center items-center text-primary cursor-pointer hover:underline'
+			className='modal-button w-2/5 flex justify-start items-center m-8 text-primary cursor-pointer text-2xl hover:underline'
 			onClick={handleClick}>
-			<FaPlus size={15} />
+			<FaPlus size={25} />
 			&nbsp; &nbsp;
-			<p>{name}</p>
+			<p>New {name}</p>
 		</label>
 	);
 }

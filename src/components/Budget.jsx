@@ -1,20 +1,12 @@
 import { useState, useContext } from 'react';
+import { FaPen } from 'react-icons/fa';
 import BudgetContext from '../context/Budgets/BudgetContext';
 import BudgetEditor from './BudgetEditor';
-import ModalButton from './custom/ModalButton';
-import ExpenseForm from './ExpenseForm';
-import OptionsMenuBtn from './OptionsMenuBtn';
-import OptionsMenu from './OptionsMenu';
 
-export default function Budget({ budget, FREQUENCIES, freqNames }) {
+export default function Budget({ budget }) {
 	const { categories } = useContext(BudgetContext);
 
 	const [editMode, setEditMode] = useState(false);
-	const [showExpForm, setShowExpForm] = useState(false);
-
-	function toggleExpForm() {
-		setShowExpForm(!showExpForm);
-	}
 
 	function toggleEditMode() {
 		setEditMode(!editMode);
@@ -28,24 +20,13 @@ export default function Budget({ budget, FREQUENCIES, freqNames }) {
 
 			<section className='flex justify-between w-full'>
 				<section className='w-1/3 flex items-center text-lg font-bold p-3'>
-					<p
-						className={`${
-							budget.amtSpent < budget.amount ? 'text-success' : 'text-error'
-						}`}>
-						${budget.amtSpent}
-					</p>
-					&nbsp;&nbsp;/&nbsp;&nbsp;${budget.amount}
-				</section>
-				<section className='w-1/3 flex justify-between items-center text-lg font-bold p-3'>
-					{budget.expenses.length} Expenses
+					${budget.amount}
 				</section>
 
-				<section className='dropdown dropdown-right w-1/5 flex justify-end items-center text-lg font-bold p-3'>
-					<OptionsMenuBtn />
-					<OptionsMenu />
-				</section>
-				{/*
-					<ModalButton name='Expense' handleClick={toggleExpForm} /> */}
+				<p className='w-1/3 flex justify-end items-center pr-2'>
+					<FaPen size={15} />
+					&nbsp;&nbsp; Edit
+				</p>
 			</section>
 
 			{editMode && (
@@ -54,15 +35,6 @@ export default function Budget({ budget, FREQUENCIES, freqNames }) {
 					categories={categories}
 					toggleState={editMode}
 					handleToggle={toggleEditMode}
-					freqNames={freqNames}
-				/>
-			)}
-			{showExpForm && (
-				<ExpenseForm
-					budget={budget}
-					categories={categories}
-					showExpForm={showExpForm}
-					toggleExpForm={toggleExpForm}
 				/>
 			)}
 		</section>
