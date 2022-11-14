@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const transactionSchema = require('./transactionSchema');
 
 const noteSchema = new Schema(
 	{
@@ -10,11 +11,13 @@ const noteSchema = new Schema(
 		toJSON: { virtuals: true },
 	},
 );
+
 const budgetSchema = new Schema(
 	{
 		user: { type: Schema.Types.ObjectId, ref: 'User' },
 		category: { type: Schema.Types.String, ref: 'Category' },
 		amount: { type: String, required: true },
+		transactions: [transactionSchema],
 		notes: [noteSchema],
 	},
 	{
@@ -22,6 +25,12 @@ const budgetSchema = new Schema(
 		toJSON: { virtuals: true },
 	},
 );
+
+budgetSchema.virtual('amountSpent').get(function () {
+	if (!this.transactions.length) return 0;
+
+	return this.transactions.reduce((total, tr) => total + tr.amount, 0);
+});
 
 budgetSchema.statics.getBudget = function (userId) {
 	return this.find({ user: userId });
