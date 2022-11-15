@@ -27,8 +27,6 @@ const budgetSchema = new Schema(
 );
 
 budgetSchema.virtual('amountSpent').get(function () {
-	if (!this.transactions.length) return 0;
-
 	return this.transactions.reduce((total, tr) => total + tr.amount, 0);
 });
 

@@ -12,7 +12,7 @@ const FREQUENCIES = {
 	Annualy: 'year',
 };
 
-export default function BudgetsPage() {
+export default function BudgetsPage({ routeChange }) {
 	const { budgets, loading, getBudgets, getCats } = useContext(BudgetContext);
 
 	const isMounted = useRef(true);
@@ -39,12 +39,7 @@ export default function BudgetsPage() {
 		<main className='w-full flex flex-col'>
 			{budgets.length ? (
 				budgets.map((b) => (
-					<Budget
-						budget={b}
-						key={b._id}
-						FREQUENCIES={FREQUENCIES}
-						freqNames={freqNames}
-					/>
+					<Budget budget={b} routeChange={routeChange} key={b._id} />
 				))
 			) : (
 				<em>No budgets yet</em>

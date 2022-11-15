@@ -43,7 +43,11 @@ export default function BudgetForm({ toggleState, handleToggle }) {
 				<FormHeader name='New Budget' />
 				<label className='flex flex-col w-full h-1/4 justify-center font-bold text-xl'>
 					Category:
-					<CategoryList categories={categories} handleChange={handleChange} />
+					<CategoryList
+						categories={categories}
+						value={formData.category}
+						handleChange={handleChange}
+					/>
 				</label>
 
 				<FormInput

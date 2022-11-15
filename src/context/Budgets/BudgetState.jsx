@@ -38,6 +38,15 @@ export default function BudgetState(props) {
 		});
 	}
 
+	async function deleteBudget(budgetId) {
+		setLoading();
+		await budgetsAPI.deleteBudget(budgetId);
+		dispatch({
+			type: DELETE_BUDGET,
+			payload: state.budgets,
+		});
+	}
+
 	async function getCats() {
 		setLoading();
 		const res = await getAll();
@@ -59,6 +68,7 @@ export default function BudgetState(props) {
 				loading: state.loading,
 				getBudgets,
 				createBudget,
+				deleteBudget,
 				getCats,
 			}}>
 			{props.children}
