@@ -5,7 +5,7 @@ import BudgetEditor from './BudgetEditor';
 import TransactionForm from './TransactionForm';
 
 export default function Budget({ budget, routeChange }) {
-	const { categories, deleteBudget } = useContext(BudgetContext);
+	const { categories, deleteBudget, updateBudget } = useContext(BudgetContext);
 
 	const [editMode, setEditMode] = useState(false);
 	const [editTransactions, setEditTransactions] = useState(false);
@@ -68,6 +68,8 @@ export default function Budget({ budget, routeChange }) {
 					categories={categories}
 					toggleState={editMode}
 					handleToggle={toggleEditMode}
+					updateBudget={updateBudget}
+					routeChange={routeChange}
 				/>
 			)}
 			{editTransactions && (

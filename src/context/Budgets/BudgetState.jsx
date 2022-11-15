@@ -5,7 +5,9 @@ import {
 	DELETE_BUDGET,
 	GET_CATEGORIES,
 	SET_LOADING,
+	UPDATE_BUDGET,
 } from '../types';
+import { useNavigate } from 'react-router-dom';
 import * as budgetsAPI from '../../utilities/budgets-api';
 import { getAll } from '../../utilities/categories-api';
 import BudgetContext from './BudgetContext';
@@ -47,6 +49,17 @@ export default function BudgetState(props) {
 		});
 	}
 
+	async function updateBudget(budgetId, budgetData) {
+		setLoading();
+		const budget = state.budgets.find((b) => b._id === budgetId);
+		budget.amount = budgetData.amount;
+		await budgetsAPI.updateBudget(budgetId, budgetData);
+		dispatch({
+			type: UPDATE_BUDGET,
+			payload: state.budgets,
+		});
+	}
+
 	async function getCats() {
 		setLoading();
 		const res = await getAll();
@@ -60,6 +73,12 @@ export default function BudgetState(props) {
 		dispatch({ type: SET_LOADING });
 	}
 
+	const navigate = useNavigate();
+
+	function routeChange(path) {
+		navigate(path);
+	}
+
 	return (
 		<BudgetContext.Provider
 			value={{
@@ -69,7 +88,9 @@ export default function BudgetState(props) {
 				getBudgets,
 				createBudget,
 				deleteBudget,
+				updateBudget,
 				getCats,
+				routeChange,
 			}}>
 			{props.children}
 		</BudgetContext.Provider>

@@ -2,6 +2,7 @@ import {
 	GET_BUDGETS,
 	ADD_NEW_BUDGET,
 	DELETE_BUDGET,
+	UPDATE_BUDGET,
 	GET_CATEGORIES,
 	SET_LOADING,
 } from '../types';
@@ -24,6 +25,12 @@ function BudgetReducer(state, action) {
 			return {
 				...state,
 				budgets: state.budgets.splice(state.budgets.indexOf(action.payload), 1),
+				loading: false,
+			};
+		case UPDATE_BUDGET:
+			return {
+				...state,
+				budgets: action.payload,
 				loading: false,
 			};
 		case GET_CATEGORIES:

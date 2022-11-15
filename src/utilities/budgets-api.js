@@ -13,3 +13,7 @@ export function create(budgetData) {
 export function deleteBudget(budgetId) {
 	return sendRequest(`${BASE_URL}/${budgetId}`, 'DELETE');
 }
+
+export function updateBudget(budgetId, budgetData) {
+	return sendRequest(`${BASE_URL}/${budgetId}`, 'PUT', budgetData);
+}

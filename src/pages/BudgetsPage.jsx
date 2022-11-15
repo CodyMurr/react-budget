@@ -4,16 +4,9 @@ import ModalButton from '../components/custom/ModalButton';
 import BudgetForm from '../components/BudgetForm';
 import BudgetContext from '../context/Budgets/BudgetContext';
 
-const FREQUENCIES = {
-	Once: 'once',
-	Weekly: 'week',
-	Monthly: 'month',
-	'Bi-Weekly': '2 weeks',
-	Annualy: 'year',
-};
-
-export default function BudgetsPage({ routeChange }) {
-	const { budgets, loading, getBudgets, getCats } = useContext(BudgetContext);
+export default function BudgetsPage() {
+	const { budgets, loading, getBudgets, getCats, routeChange } =
+		useContext(BudgetContext);
 
 	const isMounted = useRef(true);
 
@@ -31,8 +24,6 @@ export default function BudgetsPage({ routeChange }) {
 		setShowBudgetForm(!showBudgetForm);
 	}
 
-	const freqNames = Object.keys(FREQUENCIES);
-
 	if (loading) return <h3>Loading...</h3>;
 
 	return (
@@ -47,12 +38,7 @@ export default function BudgetsPage({ routeChange }) {
 
 			<ModalButton name='Budget' handleClick={toggleForm} />
 
-			<BudgetForm
-				toggleState={showBudgetForm}
-				handleToggle={toggleForm}
-				FREQUENCIES={FREQUENCIES}
-				freqNames={freqNames}
-			/>
+			<BudgetForm toggleState={showBudgetForm} handleToggle={toggleForm} />
 		</main>
 	);
 }

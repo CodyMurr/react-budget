@@ -9,18 +9,11 @@ export default function BudgetEditor({
 	categories,
 	toggleState,
 	handleToggle,
+	updateBudget,
+	routeChange,
 }) {
-	const [formData, setFormData] = useState({ ...budget });
-	async function handleSubmit(e) {
-		e.preventDefault();
-		try {
-			// await createBudget(formData);
-			handleToggle();
-		} catch (e) {
-			// setError('Something went wrong - please try again later');
-			console.log(e);
-		}
-	}
+	const [formData, setFormData] = useState(budget);
+	const [error, setError] = useState('');
 
 	function handleChange(e) {
 		setFormData({
@@ -28,6 +21,18 @@ export default function BudgetEditor({
 			[e.target.name]: e.target.value,
 		});
 	}
+
+	async function handleUpdate(e) {
+		e.preventDefault();
+		try {
+			await updateBudget(budget._id, formData);
+
+			routeChange('/budgets');
+		} catch (err) {
+			setError(err);
+		}
+	}
+
 	return (
 		<div
 			className={`modal ${
@@ -35,27 +40,29 @@ export default function BudgetEditor({
 			} flex flex-col justify-center items-center`}>
 			<form
 				className='modal-box relative flex flex-col w-1/2 max-w-6xl h-3/5 justify-evenly items-center bg-base-300 shadow-2xl rounded-lg p-5'
-				onSubmit={handleSubmit}>
+				onSubmit={handleUpdate}>
 				<FormHeader name='Edit Budget' />
 				<label className='flex flex-col w-full h-1/4 justify-center font-bold text-xl'>
 					Category:
-					<CategoryList
-						value={formData.category}
-						categories={categories}
-						handleChange={handleChange}
+					<input
+						className='input input-ghost rounded-md w-full h-1/3'
+						type='text'
+						name='category'
+						value={budget.category}
+						disabled
 					/>
 				</label>
 
 				<FormInput
 					title='Amount'
 					type='number'
-					formData={budget}
+					formData={formData}
 					handleChange={handleChange}
 				/>
 
 				<ActionBtns handleCancel={handleToggle} />
 			</form>
-			{/* <p className='text-lg text-error'>{error}</p> */}
+			<p className='text-lg text-error'>{error}</p>
 		</div>
 	);
 }

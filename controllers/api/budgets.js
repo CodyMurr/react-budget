@@ -4,7 +4,19 @@ module.exports = {
 	getAll,
 	create,
 	deleteBudget,
+	updateBudget,
 };
+
+async function updateBudget(req, res) {
+	try {
+		const budget = await Budget.findByIdAndUpdate(req.params.id, {
+			amount: req.body.amount,
+		});
+		res.json(budget);
+	} catch (error) {
+		res.status(400).json(error);
+	}
+}
 
 async function deleteBudget(req, res) {
 	try {
