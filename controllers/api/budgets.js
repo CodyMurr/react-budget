@@ -29,7 +29,7 @@ async function deleteBudget(req, res) {
 }
 
 async function getAll(req, res) {
-	const budgets = await Budget.getBudget(req.user._id);
+	const budgets = await Budget.find({ user: req.user._id });
 
 	res.json(budgets);
 }

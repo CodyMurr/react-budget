@@ -30,8 +30,8 @@ export default function FormInput({
 
 FormInput.defaultProps = {
 	type: 'text',
-	labelStyle: 'h-1/4',
-	inputStyle: 'w-full h-1/3',
+	labelStyle: 'h-28',
+	inputStyle: 'w-full h-1/2',
 	isRequired: true,
 	isDisabled: false,
 	handleChange: () => null,

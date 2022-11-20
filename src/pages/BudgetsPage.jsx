@@ -1,12 +1,14 @@
 import { useState, useContext, useEffect, useRef } from 'react';
 import Budget from '../components/Budget';
-import ModalButton from '../components/custom/ModalButton';
 import BudgetForm from '../components/BudgetForm';
 import BudgetContext from '../context/Budgets/BudgetContext';
+import ToggleContext from '../context/Toggle/ToggleContext';
 
 export default function BudgetsPage() {
 	const { budgets, loading, getBudgets, getCats, routeChange } =
 		useContext(BudgetContext);
+
+	const { toggleState } = useContext(ToggleContext);
 
 	const isMounted = useRef(true);
 
@@ -20,14 +22,10 @@ export default function BudgetsPage() {
 		return () => (isMounted.current = false);
 	});
 
-	function toggleForm() {
-		setShowBudgetForm(!showBudgetForm);
-	}
-
 	if (loading) return <h3>Loading...</h3>;
 
 	return (
-		<main className='w-full flex flex-col'>
+		<main className='w-full flex flex-col relative'>
 			{budgets.length ? (
 				budgets.map((b) => (
 					<Budget budget={b} routeChange={routeChange} key={b._id} />
@@ -35,10 +33,12 @@ export default function BudgetsPage() {
 			) : (
 				<em>No budgets yet</em>
 			)}
-
-			<ModalButton name='Budget' handleClick={toggleForm} />
-
-			<BudgetForm toggleState={showBudgetForm} handleToggle={toggleForm} />
+			{showBudgetForm && (
+				<BudgetForm
+					toggleState={showBudgetForm}
+					handleToggle={() => toggleState(setShowBudgetForm)}
+				/>
+			)}
 		</main>
 	);
 }

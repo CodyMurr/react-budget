@@ -1,22 +1,16 @@
 import { useState, useContext } from 'react';
 import { FaPen, FaPlus, FaTrashAlt } from 'react-icons/fa';
 import BudgetContext from '../context/Budgets/BudgetContext';
+import ToggleContext from '../context/Toggle/ToggleContext';
 import BudgetEditor from './BudgetEditor';
 import TransactionForm from './TransactionForm';
 
 export default function Budget({ budget, routeChange }) {
 	const { categories, deleteBudget, updateBudget } = useContext(BudgetContext);
+	const { toggleState } = useContext(ToggleContext);
 
-	const [editMode, setEditMode] = useState(false);
 	const [editTransactions, setEditTransactions] = useState(false);
-
-	function toggleEditMode() {
-		setEditMode(!editMode);
-	}
-
-	function toggleEditTransactions() {
-		setEditTransactions(!editTransactions);
-	}
+	const [editBudget, setEditBudget] = useState(false);
 
 	function handleDelete() {
 		try {
@@ -27,6 +21,10 @@ export default function Budget({ budget, routeChange }) {
 		}
 	}
 
+	const subCategories = categories.find(
+		(cat) => cat.name === budget.category,
+	).subcategories;
+
 	return (
 		<section className='flex flex-col w-2/5 m-8'>
 			<h3 className='w-full relative rounded-t bg-secondary text-neutral-content pl-2 flex justify-center font-bold text-lg'>
@@ -35,7 +33,9 @@ export default function Budget({ budget, routeChange }) {
 					<FaPen
 						size={15}
 						className='cursor-pointer'
-						onClick={toggleEditMode}
+						onClick={() => {
+							toggleState(setEditBudget);
+						}}
 					/>
 					<FaTrashAlt
 						size={15}
@@ -52,7 +52,9 @@ export default function Budget({ budget, routeChange }) {
 
 				<p
 					className='w-1/3 flex justify-end items-center pr-2 cursor-pointer'
-					onClick={toggleEditTransactions}>
+					onClick={() => {
+						toggleState(setEditTransactions);
+					}}>
 					<FaPlus size={15} />
 					&nbsp; Add Transaction
 				</p>
@@ -62,18 +64,21 @@ export default function Budget({ budget, routeChange }) {
 				value={budget.amountSpent}
 				max={budget.amount}></progress>
 
-			{editMode && (
+			{editBudget && (
 				<BudgetEditor
 					budget={budget}
 					categories={categories}
-					toggleState={editMode}
-					handleToggle={toggleEditMode}
+					toggleState={editBudget}
+					handleToggle={() => toggleState(setEditBudget)}
 					updateBudget={updateBudget}
 					routeChange={routeChange}
 				/>
 			)}
 			{editTransactions && (
-				<TransactionForm budget={budget} toggleState={toggleEditTransactions} />
+				<TransactionForm
+					categories={subCategories}
+					toggleState={() => toggleState(setEditTransactions)}
+				/>
 			)}
 		</section>
 	);

@@ -1,14 +1,14 @@
 import React from 'react';
 import { FaPlus } from 'react-icons/fa';
 
-export default function ModalButton({ name, handleClick }) {
+export default function ModalButton({ name, handleClick, style }) {
 	return (
 		<label
-			className='modal-button w-2/5 flex justify-start items-center m-8 text-primary cursor-pointer text-2xl hover:underline'
+			className={`modal-button w-1/6 border-2 flex justify-center items-center text-primary cursor-pointer text-lg hover:underline ${style}`}
 			onClick={handleClick}>
-			<FaPlus size={25} />
+			<FaPlus size={20} />
 			&nbsp; &nbsp;
-			<p>New {name}</p>
+			<p>{name}</p>
 		</label>
 	);
 }

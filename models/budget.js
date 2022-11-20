@@ -30,8 +30,4 @@ budgetSchema.virtual('amountSpent').get(function () {
 	return this.transactions.reduce((total, tr) => total + tr.amount, 0);
 });
 
-budgetSchema.statics.getBudget = function (userId) {
-	return this.find({ user: userId });
-};
-
 module.exports = mongoose.model('Budget', budgetSchema);
