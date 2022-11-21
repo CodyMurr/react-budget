@@ -3,13 +3,13 @@ import { FaPen, FaPlus, FaTrashAlt } from 'react-icons/fa';
 import BudgetContext from '../context/Budgets/BudgetContext';
 import ToggleContext from '../context/Toggle/ToggleContext';
 import BudgetEditor from './BudgetEditor';
-import TransactionForm from './TransactionForm';
+import ExpenseForm from './ExpenseForm';
 
 export default function Budget({ budget, routeChange }) {
 	const { categories, deleteBudget, updateBudget } = useContext(BudgetContext);
 	const { toggleState } = useContext(ToggleContext);
 
-	const [editTransactions, setEditTransactions] = useState(false);
+	const [editexpenses, setEditexpenses] = useState(false);
 	const [editBudget, setEditBudget] = useState(false);
 
 	function handleDelete() {
@@ -53,10 +53,10 @@ export default function Budget({ budget, routeChange }) {
 				<p
 					className='w-1/3 flex justify-end items-center pr-2 cursor-pointer'
 					onClick={() => {
-						toggleState(setEditTransactions);
+						toggleState(setEditexpenses);
 					}}>
 					<FaPlus size={15} />
-					&nbsp; Add Transaction
+					&nbsp; Add expense
 				</p>
 			</section>
 			<progress
@@ -74,10 +74,11 @@ export default function Budget({ budget, routeChange }) {
 					routeChange={routeChange}
 				/>
 			)}
-			{editTransactions && (
-				<TransactionForm
+			{editexpenses && (
+				<ExpenseForm
+					budget={budget._id}
 					categories={subCategories}
-					toggleState={() => toggleState(setEditTransactions)}
+					toggleState={() => toggleState(setEditexpenses)}
 				/>
 			)}
 		</section>

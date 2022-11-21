@@ -8,6 +8,7 @@ import LandingPage from './LandingPage';
 import Profile from './Profile';
 import BudgetState from '../context/Budgets/BudgetState';
 import ToggleState from '../context/Toggle/ToggleState';
+import ExpenseState from '../context/Expenses/ExpenseState';
 
 export default function App() {
 	const [user, setUser] = useState(getUser());
@@ -18,15 +19,17 @@ export default function App() {
 				<>
 					<NavBar user={user} setUser={setUser} />
 					<BudgetState>
-						<ToggleState>
-							<Routes>
-								<Route path='/' element={<LandingPage user={user} />} />
-								<Route path='/profile' element={<Profile user={user} />} />
-								<Route path='/budgets' element={<BudgetsPage />} />
+						<ExpenseState>
+							<ToggleState>
+								<Routes>
+									<Route path='/' element={<LandingPage user={user} />} />
+									<Route path='/profile' element={<Profile user={user} />} />
+									<Route path='/budgets' element={<BudgetsPage />} />
 
-								<Route path='/*' element={<Navigate to='/' />} />
-							</Routes>
-						</ToggleState>
+									<Route path='/*' element={<Navigate to='/' />} />
+								</Routes>
+							</ToggleState>
+						</ExpenseState>
 					</BudgetState>
 				</>
 			) : (
