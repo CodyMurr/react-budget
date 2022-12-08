@@ -5,7 +5,7 @@ import ExitButton from './custom/ExitButton';
 import ActionBtns from './custom/ActionBtns';
 import ExpenseContext from '../context/Expenses/ExpenseContext';
 
-export default function ExpenseForm({ budget, categories, toggleState }) {
+export default function ExpenseForm({ budget, category, toggleState }) {
 	const { newExpense } = useContext(ExpenseContext);
 
 	const [formData, setFormData] = useState({
@@ -31,7 +31,7 @@ export default function ExpenseForm({ budget, categories, toggleState }) {
 			console.log(error);
 		}
 	}
-
+	const subCats = category.subcategories;
 	return (
 		<div
 			className={`modal ${
@@ -51,7 +51,7 @@ export default function ExpenseForm({ budget, categories, toggleState }) {
 						value={formData.category}
 						onChange={handleChange}>
 						<option value={null}>Choose Category</option>
-						{categories.map((cat) => (
+						{subCats.map((cat) => (
 							<option value={cat.name} key={cat.name}>
 								{cat.name}
 							</option>

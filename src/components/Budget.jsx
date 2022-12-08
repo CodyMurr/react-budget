@@ -21,9 +21,7 @@ export default function Budget({ budget, routeChange }) {
 		}
 	}
 
-	const subCategories = categories.find(
-		(cat) => cat.name === budget.category,
-	).subcategories;
+	const category = categories.find((cat) => cat.name === budget.category);
 
 	return (
 		<section className='flex flex-col w-2/5 m-8'>
@@ -77,7 +75,7 @@ export default function Budget({ budget, routeChange }) {
 			{editexpenses && (
 				<ExpenseForm
 					budget={budget._id}
-					categories={subCategories}
+					category={category}
 					toggleState={() => toggleState(setEditexpenses)}
 				/>
 			)}

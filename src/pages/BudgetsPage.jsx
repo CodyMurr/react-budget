@@ -3,6 +3,7 @@ import Budget from '../components/Budget';
 import BudgetForm from '../components/BudgetForm';
 import BudgetContext from '../context/Budgets/BudgetContext';
 import ToggleContext from '../context/Toggle/ToggleContext';
+import ModalButton from '../components/custom/ModalButton';
 
 export default function BudgetsPage() {
 	const { budgets, loading, getBudgets, getCats, routeChange } =
@@ -26,6 +27,10 @@ export default function BudgetsPage() {
 
 	return (
 		<main className='w-full flex flex-col relative'>
+			<ModalButton
+				name='New Budget'
+				handleClick={() => toggleState(setShowBudgetForm)}
+			/>
 			{budgets.length ? (
 				budgets.map((b) => (
 					<Budget budget={b} routeChange={routeChange} key={b._id} />
