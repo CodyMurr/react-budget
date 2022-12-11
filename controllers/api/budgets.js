@@ -6,17 +6,7 @@ module.exports = {
 	create,
 	deleteBudget,
 	updateBudget,
-	newExpense,
 };
-
-async function newExpense(req, res) {
-	try {
-		const budget = await Budget.findById(req.params.id);
-		budget.addExpense(req.body);
-	} catch (error) {
-		res.status(400).json(error);
-	}
-}
 
 async function updateBudget(req, res) {
 	try {
@@ -49,10 +39,7 @@ async function show(req, res) {
 }
 
 async function getAll(req, res) {
-	const budgets = await Budget.find({ user: req.user._id })
-		.populate('expenses')
-		.exec();
-
+	const budgets = await Budget.find({ user: req.user._id });
 	res.json(budgets);
 }
 

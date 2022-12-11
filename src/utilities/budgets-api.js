@@ -21,7 +21,3 @@ export function deleteBudget(budgetId) {
 export function updateBudget(budgetId, budgetData) {
 	return sendRequest(`${BASE_URL}/${budgetId}`, 'PUT', budgetData);
 }
-
-export function addExpense(budgetId, expData) {
-	return sendRequest(`${BASE_URL}/${budgetId}`, 'POST', expData);
-}

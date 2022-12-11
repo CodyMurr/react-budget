@@ -8,8 +8,6 @@ router.get('/:id', budgetsCtrl.show);
 
 router.post('/', budgetsCtrl.create);
 
-router.post('/:id', budgetsCtrl.newExpense);
-
 router.put('/:id', budgetsCtrl.updateBudget);
 
 router.delete('/:id', budgetsCtrl.deleteBudget);
