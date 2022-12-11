@@ -19,9 +19,9 @@ export default function NavBar({ setUser }) {
 	}
 
 	return (
-		<div className='mt-0 flex w-1/12 h-screen bg-primary'>
+		<div className='mt-0 flex w-2/12 h-screen bg-secondary'>
 			<nav className='flex flex-col w-full justify-evenly'>
-				<ul className='w-full h-1/2 flex flex-col justify-between items-center pt-3'>
+				<ul className='w-full h-1/2 flex flex-col justify-between items-center'>
 					<NavItem
 						link='/home'
 						icon={<BsFillHouseDoorFill size={30} />}
@@ -46,7 +46,7 @@ export default function NavBar({ setUser }) {
 
 				<section className='w-full h-1/2 flex flex-col justify-end items-center'>
 					<Link
-						className='text-secondary-content border-b-2 border-b-secondary-content border-t-2 border-t-secondary-content font-bold w-full h-1/5 flex items-center justify-center'
+						className='text-primary-content w-full h-1/4 flex flex-col items-center justify-center hover:bg-secondary-focus'
 						to=''
 						onClick={handleLogout}>
 						Log Out

@@ -79,6 +79,32 @@ export default function BudgetState(props) {
 		navigate(path);
 	}
 
+	function generateKey() {
+		const range = (start, stop, step) =>
+			Array.from(
+				{ length: (stop - start) / step + 1 },
+				(_, i) => step * i + start,
+			);
+
+		const letters = range('A'.charCodeAt(0), 'Z'.charCodeAt(0), 1).map((n) =>
+			String.fromCharCode(n),
+		);
+		const numbers = range(0, 9, 1);
+		const special = '!@#$%^&*,.?|'.split('');
+
+		const arr = [letters, numbers, special];
+
+		const keyArr = [];
+		const randomLen = Math.floor(Math.random() * (10 - 5) + 5);
+		while (keyArr.length <= randomLen) {
+			const random1 = Math.floor(Math.random() * arr.length);
+			const random2 = Math.floor(Math.random() * arr[random1].length);
+			keyArr.push(arr[random1][random2]);
+		}
+
+		return keyArr;
+	}
+
 	return (
 		<BudgetContext.Provider
 			value={{
@@ -91,6 +117,7 @@ export default function BudgetState(props) {
 				updateBudget,
 				getCats,
 				routeChange,
+				generateKey,
 			}}>
 			{props.children}
 		</BudgetContext.Provider>

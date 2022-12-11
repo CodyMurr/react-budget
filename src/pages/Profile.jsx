@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { FaPen } from 'react-icons/fa';
+import BackButton from '../components/custom/BackButton';
 
 export default function Profile({ user }) {
 	const [updateInfo, setUpdateInfo] = useState(false);
@@ -8,12 +9,10 @@ export default function Profile({ user }) {
 		setUpdateInfo(!updateInfo);
 	}
 	return (
-		<div className='w-full flex flex-col items-center relative'>
-			<section className='flex w-full h-12 justify-center items-center bg-secondary-content'>
-				<h2 className='text-2xl font-extrabold text-secondary'>
-					Personal Details
-				</h2>
-			</section>
+		<div className='w-10/12 flex flex-col items-center relative'>
+			<header className='text-primary font-extrabold w-full h-24 flex items-center justify-between p-5 border-b-2'>
+				<h1 className='text-4xl'>Personal Details</h1>
+			</header>
 			<form className='w-10/12 h-2/6 flex flex-col items-center justify-center mt-5 bg-base-300 rounded-lg'>
 				{updateInfo ? (
 					<span className='flex flex-col w-full'>
@@ -62,6 +61,7 @@ export default function Profile({ user }) {
 					/>
 				</section>
 			</form>
+			<BackButton />
 		</div>
 	);
 }

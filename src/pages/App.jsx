@@ -1,40 +1,50 @@
 import { useState } from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import { getUser } from '../utilities/users-service';
 import NavBar from '../components/Navbar';
 import AuthPage from './AuthPage';
 import BudgetsPage from './BudgetsPage';
+import NewBudgetPage from './NewBudgetPage';
 import LandingPage from './LandingPage';
 import Profile from './Profile';
 import BudgetState from '../context/Budgets/BudgetState';
-import ToggleState from '../context/Toggle/ToggleState';
-import ExpenseState from '../context/Expenses/ExpenseState';
+import BudgetEditor from './BudgetEditor';
+
+const THEMES = {
+	'-1': 'dark',
+	1: 'corporate',
+};
 
 export default function App() {
 	const [user, setUser] = useState(getUser());
+	const [theme, setTheme] = useState(1);
+	const navigate = useNavigate();
 
 	return (
-		<main className='flex w-full h-screen relative'>
+		<div
+			className='flex w-full h-screen relative bg-base-100'
+			data-theme={THEMES[theme]}>
 			{user ? (
 				<>
 					<NavBar user={user} setUser={setUser} />
 					<BudgetState>
-						<ExpenseState>
-							<ToggleState>
-								<Routes>
-									<Route path='/' element={<LandingPage user={user} />} />
-									<Route path='/profile' element={<Profile user={user} />} />
-									<Route path='/budgets' element={<BudgetsPage />} />
+						<Routes>
+							<Route path='/' element={<LandingPage user={user} />} />
+							<Route path='/profile' element={<Profile user={user} />} />
+							<Route path='/budgets' element={<BudgetsPage />} />
+							<Route
+								path='/budgets/new'
+								element={<NewBudgetPage navigate={navigate} />}
+							/>
+							<Route path='/budgets/:id' element={<BudgetEditor />} />
 
-									<Route path='/*' element={<Navigate to='/' />} />
-								</Routes>
-							</ToggleState>
-						</ExpenseState>
+							<Route path='/*' element={<Navigate to='/' />} />
+						</Routes>
 					</BudgetState>
 				</>
 			) : (
 				<AuthPage user={user} setUser={setUser} />
 			)}
-		</main>
+		</div>
 	);
 }

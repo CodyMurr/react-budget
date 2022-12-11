@@ -3,7 +3,7 @@ import React from 'react';
 export default function ActionBtns(props) {
 	return (
 		<>
-			<section className='flex justify-start items-center w-full h-1/4'>
+			<section className='flex items-center justify-start w-3/4'>
 				<button
 					className='btn btn-accent rounded text-accent-content w-1/3 font-bold text-lg mr-5'
 					type='submit'>

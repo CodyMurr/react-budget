@@ -6,6 +6,10 @@ export function getAll() {
 	return sendRequest(BASE_URL);
 }
 
+export function showBudgetDetail(budgetId) {
+	return sendRequest(`${BASE_URL}/${budgetId}`);
+}
+
 export function create(budgetData) {
 	return sendRequest(BASE_URL, 'POST', budgetData);
 }
@@ -16,4 +20,8 @@ export function deleteBudget(budgetId) {
 
 export function updateBudget(budgetId, budgetData) {
 	return sendRequest(`${BASE_URL}/${budgetId}`, 'PUT', budgetData);
+}
+
+export function addExpense(budgetId, expData) {
+	return sendRequest(`${BASE_URL}/${budgetId}`, 'POST', expData);
 }

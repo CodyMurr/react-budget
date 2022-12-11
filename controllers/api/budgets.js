@@ -2,10 +2,21 @@ const Budget = require('../../models/budget');
 
 module.exports = {
 	getAll,
+	show,
 	create,
 	deleteBudget,
 	updateBudget,
+	newExpense,
 };
+
+async function newExpense(req, res) {
+	try {
+		const budget = await Budget.findById(req.params.id);
+		budget.addExpense(req.body);
+	} catch (error) {
+		res.status(400).json(error);
+	}
+}
 
 async function updateBudget(req, res) {
 	try {
@@ -28,9 +39,18 @@ async function deleteBudget(req, res) {
 	}
 }
 
+async function show(req, res) {
+	try {
+		const budget = await Budget.findById(req.params.id);
+		res.json(budget);
+	} catch (error) {
+		res.status(400).json(error);
+	}
+}
+
 async function getAll(req, res) {
 	const budgets = await Budget.find({ user: req.user._id })
-		.populate('expense')
+		.populate('expenses')
 		.exec();
 
 	res.json(budgets);

@@ -1,15 +1,10 @@
-import { useState, useContext } from 'react';
+import { useState } from 'react';
 import FormHeader from './custom/FormHeader';
 import FormInput from './custom/FormInput';
-import ExitButton from './custom/ExitButton';
 import ActionBtns from './custom/ActionBtns';
-import ExpenseContext from '../context/Expenses/ExpenseContext';
 
 export default function ExpenseForm({ budget, category, toggleState }) {
-	const { newExpense } = useContext(ExpenseContext);
-
 	const [formData, setFormData] = useState({
-		budget,
 		category: '',
 		amount: '',
 		isPaid: '',
@@ -25,7 +20,6 @@ export default function ExpenseForm({ budget, category, toggleState }) {
 	async function handleSubmit(e) {
 		e.preventDefault();
 		try {
-			await newExpense(formData);
 			toggleState();
 		} catch (error) {
 			console.log(error);
@@ -40,7 +34,6 @@ export default function ExpenseForm({ budget, category, toggleState }) {
 			<form
 				className='modal-box relative flex flex-col w-1/2 max-w-6xl h-3/5 justify-evenly items-center bg-base-300 shadow-2xl rounded-lg p-5'
 				onSubmit={handleSubmit}>
-				<ExitButton handleClick={toggleState} />
 				<FormHeader name='New expense' />
 
 				<label className='flex flex-col w-full h-28 justify-center font-bold text-xl'>

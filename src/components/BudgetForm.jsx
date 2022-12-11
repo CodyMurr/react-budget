@@ -1,12 +1,11 @@
 import { useState, useContext } from 'react';
 import FormInput from './custom/FormInput';
-import FormHeader from './custom/FormHeader';
 import ActionBtns from './custom/ActionBtns';
 import BudgetContext from '../context/Budgets/BudgetContext';
 import CategoryList from './CategoryList';
 
-export default function BudgetForm({ toggleState, handleToggle }) {
-	const { categories, createBudget } = useContext(BudgetContext);
+export default function BudgetForm() {
+	const { categories, createBudget, routeChange } = useContext(BudgetContext);
 
 	const [formData, setFormData] = useState({
 		category: '',
@@ -15,11 +14,15 @@ export default function BudgetForm({ toggleState, handleToggle }) {
 
 	const [error, setError] = useState('');
 
+	function goToBudgets() {
+		routeChange('/budgets');
+	}
+
 	async function handleSubmit(e) {
 		e.preventDefault();
 		try {
 			await createBudget(formData);
-			handleToggle();
+			goToBudgets();
 		} catch {
 			setError('Something went wrong - please try again later');
 		}
@@ -33,15 +36,16 @@ export default function BudgetForm({ toggleState, handleToggle }) {
 	}
 
 	return (
-		<div
-			className={`modal ${
-				toggleState && 'modal-open'
-			} flex flex-col justify-center items-center`}>
+		<>
 			<form
-				className='modal-box relative flex flex-col w-1/2 max-w-6xl h-3/5 justify-evenly items-center bg-base-300 shadow-2xl rounded-lg p-5'
+				className='relative flex flex-col w-full h-3/5 justify-evenly items-center bg-base-300 shadow-2xl rounded-lg p-5'
 				onSubmit={handleSubmit}>
-				<FormHeader name='New Budget' />
-				<label className='flex flex-col w-full h-28 justify-center font-bold text-xl'>
+				<section className='w-full h-28 flex justify-center items-center'>
+					<h2 className='text-3xl font-bold text-secondary-content'>
+						New Budget
+					</h2>
+				</section>
+				<label className='flex flex-col w-3/4 h-28 justify-center font-bold text-xl'>
 					Category:
 					<CategoryList
 						categories={categories}
@@ -57,9 +61,9 @@ export default function BudgetForm({ toggleState, handleToggle }) {
 					handleChange={handleChange}
 				/>
 
-				<ActionBtns handleCancel={handleToggle} />
+				<ActionBtns handleCancel={goToBudgets} />
 			</form>
 			<p className='text-lg text-error'>{error}</p>
-		</div>
+		</>
 	);
 }

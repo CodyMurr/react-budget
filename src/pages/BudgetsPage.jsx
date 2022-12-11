@@ -1,19 +1,14 @@
-import { useState, useContext, useEffect, useRef } from 'react';
+import { useContext, useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
+import { FaPlus } from 'react-icons/fa';
 import Budget from '../components/Budget';
-import BudgetForm from '../components/BudgetForm';
 import BudgetContext from '../context/Budgets/BudgetContext';
-import ToggleContext from '../context/Toggle/ToggleContext';
-import ModalButton from '../components/custom/ModalButton';
 
 export default function BudgetsPage() {
 	const { budgets, loading, getBudgets, getCats, routeChange } =
 		useContext(BudgetContext);
 
-	const { toggleState } = useContext(ToggleContext);
-
 	const isMounted = useRef(true);
-
-	const [showBudgetForm, setShowBudgetForm] = useState(false);
 
 	useEffect(() => {
 		if (isMounted.current) {
@@ -26,23 +21,26 @@ export default function BudgetsPage() {
 	if (loading) return <h3>Loading...</h3>;
 
 	return (
-		<main className='w-full flex flex-col relative'>
-			<ModalButton
-				name='New Budget'
-				handleClick={() => toggleState(setShowBudgetForm)}
-			/>
+		<main className='w-10/12 flex flex-col relative'>
+			<header className='text-primary font-extrabold w-full h-24 flex items-center justify-between p-5 border-b-2'>
+				<h1 className='text-4xl'>Budgets</h1>
+				<Link
+					to='/budgets/new'
+					className='w-1/6 h-18 btn btn-ghost border-accent border-4 rounded text-accent flex justify-center items-center cursor-pointer hover:bg-accent hover:text-accent-content'>
+					<FaPlus size={20} />
+					&nbsp; &nbsp;
+					<p>New Budget</p>
+				</Link>
+			</header>
+
 			{budgets.length ? (
 				budgets.map((b) => (
 					<Budget budget={b} routeChange={routeChange} key={b._id} />
 				))
 			) : (
-				<em>No budgets yet</em>
-			)}
-			{showBudgetForm && (
-				<BudgetForm
-					toggleState={showBudgetForm}
-					handleToggle={() => toggleState(setShowBudgetForm)}
-				/>
+				<section className='w-full flex justify-center p-10'>
+					<em className='text-xl font-bold text-primary'>No budgets yet...</em>
+				</section>
 			)}
 		</main>
 	);
