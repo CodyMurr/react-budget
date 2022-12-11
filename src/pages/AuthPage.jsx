@@ -14,7 +14,7 @@ export default function AuthPage({ setUser }) {
 	}
 
 	return (
-		<main className='w-10/12 h-screen'>
+		<main className='w-full h-screen'>
 			<div className='w-full h-full flex flex-col items-center justify-center'>
 				<h2 className='text-4xl text-primary font-bold'>
 					{showLogin ? 'Welcome Back!' : 'Register Account'}

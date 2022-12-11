@@ -45,30 +45,34 @@ export default class SignUpForm extends Component {
 		return (
 			<>
 				<form
-					className='w-1/2 relative'
+					className='w-1/3 relative'
 					autoComplete='off'
 					onSubmit={this.handleSubmit}>
 					<FormInput
 						title='Name'
 						formData={this.state}
+						labelStyle='w-full'
 						handleChange={this.handleChange}
 					/>
 					<FormInput
 						title='Email'
 						type='email'
 						formData={this.state}
+						labelStyle='w-full'
 						handleChange={this.handleChange}
 					/>
 					<FormInput
 						title='Password'
 						type={this.props.showPassword ? 'password' : 'text'}
 						formData={this.state}
+						labelStyle='w-full'
 						handleChange={this.handleChange}
 					/>
 					<FormInput
 						title='Confirm'
 						type={this.props.showPassword ? 'password' : 'text'}
 						formData={this.state}
+						labelStyle='w-full'
 						handleChange={this.handleChange}
 					/>
 

@@ -12,7 +12,7 @@ export default function FormInput({
 }) {
 	return (
 		<label
-			className={`flex flex-col justify-center text-xl my-3 font-bold ${labelStyle}`}>
+			className={`flex flex-col justify-center text-xl my-3 font-bold h-28 ${labelStyle}`}>
 			{title}:
 			<input
 				className={`input input-primary rounded-md ${inputStyle}`}
@@ -30,7 +30,7 @@ export default function FormInput({
 
 FormInput.defaultProps = {
 	type: 'text',
-	labelStyle: 'w-3/4 h-28',
+	labelStyle: 'w-3/4',
 	inputStyle: 'w-full h-1/2',
 	isRequired: true,
 	isDisabled: false,

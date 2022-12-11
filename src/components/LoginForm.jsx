@@ -37,18 +37,20 @@ export default function LoginForm({
 	return (
 		<>
 			<form
-				className='w-1/2 relative'
+				className='w-1/3 relative'
 				autoComplete='off'
 				onSubmit={handleSubmit}>
 				<FormInput
 					title='Email'
 					formData={credentials}
+					labelStyle='w-full'
 					handleChange={handleChange}
 				/>
 				<FormInput
 					title='Password'
 					type={showPassword ? 'text' : 'password'}
 					formData={credentials}
+					labelStyle='w-full'
 					handleChange={handleChange}
 				/>
 

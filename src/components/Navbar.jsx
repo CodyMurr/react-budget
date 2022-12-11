@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import {
 	BsFillHouseDoorFill,
@@ -10,7 +11,14 @@ import * as userService from '../utilities/users-service';
 import NavItem from './custom/NavItem';
 
 export default function NavBar({ setUser }) {
+	const [activePath, setActivePath] = useState('');
+
 	const navigate = useNavigate();
+
+	function handlePathChange(newPath) {
+		setActivePath(newPath);
+		navigate(newPath);
+	}
 
 	function handleLogout() {
 		userService.logOut();
@@ -26,21 +34,39 @@ export default function NavBar({ setUser }) {
 						link='/home'
 						icon={<BsFillHouseDoorFill size={30} />}
 						text='Overview'
+						activePath={activePath}
+						handlePathChange={handlePathChange}
 					/>
 					<NavItem
 						link='/budgets'
 						icon={<BsWindowSidebar size={30} />}
 						text='Budgets'
+						activePath={activePath}
+						handlePathChange={handlePathChange}
 					/>
 
-					<NavItem link='/' icon={<BsBank2 size={30} />} text='Accounts' />
+					<NavItem
+						link='/'
+						icon={<BsBank2 size={30} />}
+						text='Accounts'
+						activePath={activePath}
+						handlePathChange={handlePathChange}
+					/>
 
-					<NavItem link='/' icon={<BsGearFill size={30} />} text='Settings' />
+					<NavItem
+						link='/'
+						icon={<BsGearFill size={30} />}
+						text='Settings'
+						activePath={activePath}
+						handlePathChange={handlePathChange}
+					/>
 
 					<NavItem
 						link='/profile'
 						icon={<BsFillPersonFill size={30} />}
 						text='profile'
+						activePath={activePath}
+						handlePathChange={handlePathChange}
 					/>
 				</ul>
 
