@@ -37,29 +37,31 @@ export default function LoginForm({
 	return (
 		<>
 			<form
-				className='w-1/3 relative'
+				className='w-1/2 h-1/2 flex flex-col justify-between relative bg-base-300 p-5 rounded-box m-5'
 				autoComplete='off'
 				onSubmit={handleSubmit}>
-				<FormInput
-					title='Email'
-					formData={credentials}
-					labelStyle='w-full'
-					handleChange={handleChange}
-				/>
-				<FormInput
-					title='Password'
-					type={showPassword ? 'text' : 'password'}
-					formData={credentials}
-					labelStyle='w-full'
-					handleChange={handleChange}
-				/>
+				<section className='h-2/5 w-full flex flex-col justify-between'>
+					<FormInput
+						title='Email'
+						formData={credentials}
+						labelStyle='w-full'
+						handleChange={handleChange}
+					/>
+					<FormInput
+						title='Password'
+						type={showPassword ? 'text' : 'password'}
+						formData={credentials}
+						labelStyle='w-full'
+						handleChange={handleChange}
+					/>
+				</section>
 
 				<PasswordToggle
 					showPassword={showPassword}
 					togglePassword={togglePassword}
 				/>
 
-				<section className='flex flex-col items-center justify-evenly w-full mt-4'>
+				<section className='flex flex-col items-center justify-evenly w-full h-2/5'>
 					<button className='btn btn-primary text-lg w-full' type='submit'>
 						Log In
 					</button>

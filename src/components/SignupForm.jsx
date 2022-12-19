@@ -45,7 +45,7 @@ export default class SignUpForm extends Component {
 		return (
 			<>
 				<form
-					className='w-1/3 relative'
+					className='w-1/2 h-4/5 flex flex-col justify-evenly relative bg-base-300 p-5 rounded-box m-5'
 					autoComplete='off'
 					onSubmit={this.handleSubmit}>
 					<FormInput
@@ -81,7 +81,7 @@ export default class SignUpForm extends Component {
 						togglePassword={this.props.togglePassword}
 					/>
 
-					<section className='flex flex-col items-center justify-evenly mt-4'>
+					<section className='flex flex-col items-center justify-evenly'>
 						<button
 							className='btn btn-secondary text-lg w-full'
 							type='submit'

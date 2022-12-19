@@ -4,19 +4,19 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa';
 export default function PasswordToggle(props) {
 	return (
 		<section
-			className='flex w-full justify-start text-lg cursor-pointer'
+			className='flex w-full h-1/5 justify-start items-center text-lg cursor-pointer'
 			onClick={props.togglePassword}>
 			{props.showPassword ? (
-				<FaEyeSlash size={25} className='text-neutral mr-2' />
+				<>
+					<FaEye size={25} className='text-accent-content' />
+					<p className='ml-2 font-bold text-accent-content'>Hide Password</p>
+				</>
 			) : (
-				<FaEye size={25} className='text-success mr-2' />
+				<>
+					<FaEyeSlash size={25} className='text-accent-content' />
+					<p className='ml-2 font-bold text-accent-content'>Show Password</p>
+				</>
 			)}
-			<p
-				className={`ml-2 font-bold ${
-					props.showPassword ? 'text-neutral' : 'text-success'
-				}`}>
-				Show Password
-			</p>
 		</section>
 	);
 }
