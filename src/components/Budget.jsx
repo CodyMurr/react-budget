@@ -26,7 +26,7 @@ export default function Budget({ budget }) {
 
 			<progress
 				className='progress progress-primary w-11/12 h-3 border-2 border-primary'
-				value={budget.amountSpent}
+				value={0}
 				max={budget.amount}></progress>
 		</section>
 	);
