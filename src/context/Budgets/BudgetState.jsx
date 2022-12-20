@@ -69,6 +69,12 @@ export default function BudgetState(props) {
 		});
 	}
 
+	async function showBudget(id, cb1, cb2 = null) {
+		const budget = await budgetsAPI.showBudgetDetail(id);
+		cb1(budget);
+		cb2(budget);
+	}
+
 	function setLoading() {
 		dispatch({ type: SET_LOADING });
 	}
@@ -116,6 +122,7 @@ export default function BudgetState(props) {
 				deleteBudget,
 				updateBudget,
 				getCats,
+				showBudget,
 				routeChange,
 				generateKey,
 			}}>

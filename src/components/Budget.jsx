@@ -1,5 +1,4 @@
-import { Link } from 'react-router-dom';
-import { FaPen } from 'react-icons/fa';
+import OptionsMenu from './custom/OptionsMenu';
 
 export default function Budget({ budget }) {
 	const catSplit = budget.category.split(': ');
@@ -16,17 +15,12 @@ export default function Budget({ budget }) {
 					${budget.amountSpent} / ${budget.amount}
 				</section>
 
-				<Link
-					to={`/budgets/${budget._id}`}
-					className='w-1/3 flex items-center justify-end text-lg text-primary font-bold p-3'>
-					<FaPen size={20} />
-					&nbsp;Edit
-				</Link>
+				<OptionsMenu budget={budget} />
 			</section>
 
 			<progress
 				className='progress progress-primary w-11/12 h-3 border-2 border-primary'
-				value={0}
+				value={budget.amountSpent}
 				max={budget.amount}></progress>
 		</section>
 	);

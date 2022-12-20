@@ -1,13 +1,15 @@
 import { useState, useContext, useRef, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { showBudgetDetail } from '../utilities/budgets-api';
 import { FaTrashAlt } from 'react-icons/fa';
 import BudgetContext from '../context/Budgets/BudgetContext';
 import ActionBtns from '../components/custom/ActionBtns';
 import FormInput from '../components/custom/FormInput';
+import BackButton from '../components/custom/BackButton';
+import PageHeader from '../components/custom/PageHeader';
 
 export default function BudgetEditor() {
-	const { routeChange, updateBudget, deleteBudget } = useContext(BudgetContext);
+	const { showBudget, routeChange, updateBudget, deleteBudget } =
+		useContext(BudgetContext);
 
 	const [formData, setFormData] = useState({});
 	const [error, setError] = useState('');
@@ -18,13 +20,8 @@ export default function BudgetEditor() {
 	const { id } = useParams();
 
 	useEffect(() => {
-		async function showBudget() {
-			const budget = await showBudgetDetail(id);
-			setBudget(budget);
-			setFormData(budget);
-		}
 		if (isMounted.current) {
-			showBudget();
+			showBudget(id, setBudget, setFormData);
 		}
 
 		return () => (isMounted.current = false);
@@ -58,23 +55,29 @@ export default function BudgetEditor() {
 	}
 
 	return (
-		<>
-			<form
-				className='relative flex flex-col w-full h-2/5 items-center bg-base-300 shadow-2xl rounded-lg'
-				onSubmit={handleUpdate}>
-				<header className='text-primary font-extrabold w-full h-24 flex items-center justify-between p-5 border-b-2'>
-					<h1 className='text-4xl text-secondary-content'>
-						Edit Budget For{' '}
-						<span className=' text-primary'>{budget.category}</span>
-					</h1>
-				</header>
+		<main className='w-10/12 flex flex-col items-center relative'>
+			<PageHeader text='Edit ' keyWord={budget.category} />
 
+			<form
+				className='relative flex flex-col w-full h-3/5 items-center justify-center bg-base-300 shadow-2xl rounded-lg'
+				onSubmit={handleUpdate}>
+				<FormInput
+					title='Category'
+					formData={formData}
+					handleChange={handleChange}
+					isDisabled={true}
+				/>
 				<FormInput
 					title='Amount'
 					type='number'
 					formData={formData}
 					handleChange={handleChange}
 				/>
+
+				<h2 className='w-3/4 flex text-primary items-center text-lg'>
+					{budget.transactions.length}&nbsp;&nbsp;
+					<em className='text-base-content'>Transactions</em>
+				</h2>
 
 				<section className='flex justify-between items-center w-3/4 h-32'>
 					<ActionBtns handleCancel={routeChange} />
@@ -86,7 +89,8 @@ export default function BudgetEditor() {
 					</button>
 				</section>
 			</form>
+			<BackButton />
 			<p className='text-lg text-error'>{error}</p>
-		</>
+		</main>
 	);
 }

@@ -9,6 +9,7 @@ import LandingPage from './LandingPage';
 import Profile from './Profile';
 import BudgetState from '../context/Budgets/BudgetState';
 import BudgetEditor from './BudgetEditor';
+import NewTransactionPage from './NewTransactionPage';
 
 const THEMES = {
 	'-1': 'dark',
@@ -37,7 +38,10 @@ export default function App() {
 								element={<NewBudgetPage navigate={navigate} />}
 							/>
 							<Route path='/budgets/:id' element={<BudgetEditor />} />
-
+							<Route
+								path='budgets/:id/transactions/new'
+								element={<NewTransactionPage />}
+							/>
 							<Route path='/*' element={<Navigate to='/' />} />
 						</Routes>
 					</BudgetState>
