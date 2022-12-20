@@ -3,6 +3,7 @@ const Schema = mongoose.Schema;
 
 const transactionSchema = new Schema(
 	{
+		type: { type: String, required: true, default: 'debit' },
 		category: { type: Schema.Types.String, ref: 'Category' },
 		amount: { type: Number, required: true },
 		payee: { type: String },

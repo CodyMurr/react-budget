@@ -40,11 +40,6 @@ export default function BudgetForm() {
 			<form
 				className='relative flex flex-col w-full h-3/5 justify-evenly items-center bg-base-300 shadow-2xl rounded-lg p-5'
 				onSubmit={handleSubmit}>
-				<section className='w-full h-28 flex justify-center items-center'>
-					<h2 className='text-3xl font-bold text-secondary-content'>
-						New Budget
-					</h2>
-				</section>
 				<label className='flex flex-col w-3/4 h-28 justify-center font-bold text-xl'>
 					Category:
 					<CategoryList

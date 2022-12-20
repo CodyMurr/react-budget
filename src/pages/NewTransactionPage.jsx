@@ -6,7 +6,7 @@ import TransactionForm from '../components/TransactionForm';
 import BudgetContext from '../context/Budgets/BudgetContext';
 
 export default function NewTransactionPage() {
-	const { showBudget } = useContext(BudgetContext);
+	const { showBudget, newTransaction, routeChange } = useContext(BudgetContext);
 
 	const isMounted = useRef(true);
 
@@ -18,14 +18,17 @@ export default function NewTransactionPage() {
 		if (isMounted.current) {
 			showBudget(id, setBudget);
 		}
-	}, []);
-
-	const catSplit = budget.category.split(': ');
+		return () => (isMounted.current = false);
+	}, [id, showBudget]);
 
 	return (
 		<main className='w-10/12 h-full flex flex-col items-center relative'>
-			<PageHeader text='New Transaction For ' keyWord={catSplit[0]} />
-			<TransactionForm budget={budget} />
+			<PageHeader text='New Transaction For ' keyWord={budget.category} />
+			<TransactionForm
+				budget={budget}
+				newTransaction={newTransaction}
+				routeChange={routeChange}
+			/>
 			<BackButton />
 		</main>
 	);

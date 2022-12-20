@@ -21,3 +21,15 @@ export function deleteBudget(budgetId) {
 export function updateBudget(budgetId, budgetData) {
 	return sendRequest(`${BASE_URL}/${budgetId}`, 'PUT', budgetData);
 }
+
+export function addTransaction(budgetId, transactionData) {
+	return sendRequest(
+		`${BASE_URL}/${budgetId}/transactions/new`,
+		'POST',
+		transactionData,
+	);
+}
+
+export function viewTransactions(budgetId) {
+	return sendRequest(`${BASE_URL}/${budgetId}/transactions`);
+}

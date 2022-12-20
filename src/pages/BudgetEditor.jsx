@@ -20,8 +20,12 @@ export default function BudgetEditor() {
 	const { id } = useParams();
 
 	useEffect(() => {
+		function setData(newData) {
+			setFormData(newData);
+		}
 		if (isMounted.current) {
-			showBudget(id, setBudget, setFormData);
+			showBudget(id, setBudget);
+			setData(budget);
 		}
 
 		return () => (isMounted.current = false);
@@ -73,11 +77,6 @@ export default function BudgetEditor() {
 					formData={formData}
 					handleChange={handleChange}
 				/>
-
-				<h2 className='w-3/4 flex text-primary items-center text-lg'>
-					{budget.transactions.length}&nbsp;&nbsp;
-					<em className='text-base-content'>Transactions</em>
-				</h2>
 
 				<section className='flex justify-between items-center w-3/4 h-32'>
 					<ActionBtns handleCancel={routeChange} />

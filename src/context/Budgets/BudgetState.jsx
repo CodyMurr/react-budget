@@ -6,6 +6,8 @@ import {
 	GET_CATEGORIES,
 	SET_LOADING,
 	UPDATE_BUDGET,
+	ADD_TRANSACTION,
+	GET_TRANSACTIONS,
 } from '../types';
 import { useNavigate } from 'react-router-dom';
 import * as budgetsAPI from '../../utilities/budgets-api';
@@ -69,10 +71,30 @@ export default function BudgetState(props) {
 		});
 	}
 
-	async function showBudget(id, cb1, cb2 = null) {
+	async function showBudget(id, cb) {
 		const budget = await budgetsAPI.showBudgetDetail(id);
-		cb1(budget);
-		cb2(budget);
+		cb(budget);
+	}
+
+	async function newTransaction(budgetId, transactionData) {
+		setLoading();
+		const transaction = await budgetsAPI.addTransaction(
+			budgetId,
+			transactionData,
+		);
+		dispatch({
+			type: ADD_TRANSACTION,
+			payload: transaction,
+		});
+	}
+
+	async function showTransactions(budgetId) {
+		setLoading();
+		const transactions = await budgetsAPI.viewTransactions(budgetId);
+		dispatch({
+			type: GET_TRANSACTIONS,
+			payload: transactions,
+		});
 	}
 
 	function setLoading() {
@@ -123,6 +145,8 @@ export default function BudgetState(props) {
 				updateBudget,
 				getCats,
 				showBudget,
+				newTransaction,
+				showTransactions,
 				routeChange,
 				generateKey,
 			}}>

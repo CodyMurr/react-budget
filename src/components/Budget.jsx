@@ -1,5 +1,12 @@
 import OptionsMenu from './custom/OptionsMenu';
 
+const styles = {
+	progress: {
+		'under-budget': 'border-success progress-success',
+		'over-budget': 'border-error progress-error',
+	},
+};
+
 export default function Budget({ budget }) {
 	const catSplit = budget.category.split(': ');
 
@@ -19,7 +26,11 @@ export default function Budget({ budget }) {
 			</section>
 
 			<progress
-				className='progress progress-primary w-11/12 h-3 border-2 border-primary'
+				className={`progress w-11/12 h-3 border-2 rounded-full ${
+					budget.amountSpent < budget.amount
+						? styles.progress['under-budget']
+						: styles.progress['over-budget']
+				}`}
 				value={budget.amountSpent}
 				max={budget.amount}></progress>
 		</section>

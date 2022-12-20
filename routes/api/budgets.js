@@ -6,7 +6,11 @@ router.get('/', budgetsCtrl.getAll);
 
 router.get('/:id', budgetsCtrl.show);
 
+router.get('/:id/transactions', budgetsCtrl.showTransactions);
+
 router.post('/', budgetsCtrl.create);
+
+router.post('/:id/transactions/new', budgetsCtrl.addTransaction);
 
 router.put('/:id', budgetsCtrl.updateBudget);
 

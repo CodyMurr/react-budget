@@ -19,7 +19,11 @@ export default function OptionsMenu(props) {
 					</Link>
 				</li>
 				<li>
-					<Link className='text-primary font-semibold'>View Transactions</Link>
+					<Link
+						className='text-primary font-semibold'
+						to={`/budgets/${props.budget._id}/transactions`}>
+						View Transactions
+					</Link>
 				</li>
 				<li>
 					<Link
