@@ -88,15 +88,6 @@ export default function BudgetState(props) {
 		});
 	}
 
-	async function showTransactions(budgetId) {
-		setLoading();
-		const transactions = await budgetsAPI.viewTransactions(budgetId);
-		dispatch({
-			type: GET_TRANSACTIONS,
-			payload: transactions,
-		});
-	}
-
 	function setLoading() {
 		dispatch({ type: SET_LOADING });
 	}
@@ -146,7 +137,6 @@ export default function BudgetState(props) {
 				getCats,
 				showBudget,
 				newTransaction,
-				showTransactions,
 				routeChange,
 				generateKey,
 			}}>

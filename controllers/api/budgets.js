@@ -7,13 +7,7 @@ module.exports = {
 	deleteBudget,
 	updateBudget,
 	addTransaction,
-	showTransactions,
 };
-
-async function showTransactions(req, res) {
-	const budget = await Budget.findById(req.params.id);
-	res.json(budget.transactions);
-}
 
 async function addTransaction(req, res) {
 	try {

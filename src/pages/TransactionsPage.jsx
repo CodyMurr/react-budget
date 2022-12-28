@@ -4,18 +4,17 @@ import BudgetContext from '../context/Budgets/BudgetContext';
 import Transaction from '../components/Transaction';
 
 export default function TransactionsPage() {
-	const { showTransactions } = useContext(BudgetContext);
+	const { showBudget, budgets } = useContext(BudgetContext);
+
+	const [currentBudget, setCurrentBudget] = useState([]);
 
 	const isMounted = useRef(true);
 
 	const { id } = useParams();
 
-	const [tr, setTr] = useState([]);
-
 	useEffect(() => {
 		async function getEm() {
-			const tran = await showTransactions(id);
-			setTr(tran);
+			await showBudget(id, setCurrentBudget);
 		}
 		if (isMounted.current) {
 			getEm();
@@ -24,9 +23,13 @@ export default function TransactionsPage() {
 		return () => (isMounted.current = false);
 	}, []);
 
+	const transactions = currentBudget.transactions;
+
 	return (
 		<div>
-			{tr && tr.map((t) => <Transaction transaction={t} key={t._id} />)}
+			{transactions.map((t) => (
+				<Transaction transaction={t} key={t._id} />
+			))}
 		</div>
 	);
 }

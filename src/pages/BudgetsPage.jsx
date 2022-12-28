@@ -4,7 +4,7 @@ import BudgetContext from '../context/Budgets/BudgetContext';
 import PageHeader from '../components/custom/PageHeader';
 
 export default function BudgetsPage() {
-	const { budgets, loading, transactions, getBudgets, getCats, routeChange } =
+	const { budgets, loading, getBudgets, getCats, routeChange } =
 		useContext(BudgetContext);
 
 	const isMounted = useRef(true);
@@ -25,12 +25,7 @@ export default function BudgetsPage() {
 
 			{budgets.length ? (
 				budgets.map((b) => (
-					<Budget
-						budget={b}
-						transactions={transactions}
-						routeChange={routeChange}
-						key={b._id}
-					/>
+					<Budget budget={b} routeChange={routeChange} key={b._id} />
 				))
 			) : (
 				<section className='w-full flex justify-center p-10'>

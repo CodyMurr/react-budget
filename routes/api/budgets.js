@@ -6,7 +6,7 @@ router.get('/', budgetsCtrl.getAll);
 
 router.get('/:id', budgetsCtrl.show);
 
-router.get('/:id/transactions', budgetsCtrl.showTransactions);
+router.get('/:id/transactions', budgetsCtrl.show);
 
 router.post('/', budgetsCtrl.create);
 

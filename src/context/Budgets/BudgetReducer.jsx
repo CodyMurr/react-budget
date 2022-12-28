@@ -6,7 +6,6 @@ import {
 	GET_CATEGORIES,
 	SET_LOADING,
 	ADD_TRANSACTION,
-	GET_TRANSACTIONS,
 } from '../types';
 
 function BudgetReducer(state, action) {
@@ -47,12 +46,7 @@ function BudgetReducer(state, action) {
 				transactions: [...state.transactions, action.payload],
 				loading: false,
 			};
-		case GET_TRANSACTIONS:
-			return {
-				...state,
-				transactions: action.payload,
-				loading: false,
-			};
+
 		case SET_LOADING:
 			return {
 				...state,

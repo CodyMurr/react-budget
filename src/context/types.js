@@ -6,7 +6,6 @@ export const UPDATE_BUDGET = 'UPDATE_BUDGET';
 export const GET_CATEGORIES = 'GET_CATEGORIES';
 
 export const ADD_TRANSACTION = 'ADD_TRANSACTION';
-export const GET_TRANSACTIONS = 'GET_TRANSACTIONS';
 
 // misc
 export const SET_LOADING = 'SET_LOADING';

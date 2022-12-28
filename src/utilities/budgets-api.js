@@ -29,7 +29,3 @@ export function addTransaction(budgetId, transactionData) {
 		transactionData,
 	);
 }
-
-export function viewTransactions(budgetId) {
-	return sendRequest(`${BASE_URL}/${budgetId}/transactions`);
-}
