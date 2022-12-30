@@ -7,7 +7,7 @@ import PageHeader from '../components/custom/PageHeader';
 export default function TransactionsPage() {
 	const { showBudget, budgets } = useContext(BudgetContext);
 
-	const [currentBudget, setCurrentBudget] = useState([]);
+	const [currentBudget, setCurrentBudget] = useState({});
 
 	const isMounted = useRef(true);
 
