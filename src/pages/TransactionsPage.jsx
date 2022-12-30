@@ -24,14 +24,13 @@ export default function TransactionsPage() {
 		return () => (isMounted.current = false);
 	}, []);
 
-	const transactions = currentBudget.transactions;
-
 	return (
 		<main className='w-10/12 flex flex-col relative'>
 			<PageHeader text={`Transactions for ${currentBudget.category}`} />
-			{transactions.map((t) => (
-				<Transaction transaction={t} key={t._id} />
-			))}
+			{currentBudget.transactions &&
+				currentBudget.transactions.map((t) => (
+					<Transaction transaction={t} key={t._id} />
+				))}
 		</main>
 	);
 }
